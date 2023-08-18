@@ -3,7 +3,7 @@ const mainPrank = document.getElementById('Prank');
    
   setTimeout(()=>{
 
-       mainPrank.style.top='5vh';
+       mainPrank.style.top='15vh';
   },3000);
 console.log('Clicked');
 });

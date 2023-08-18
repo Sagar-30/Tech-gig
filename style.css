@@ -204,10 +204,12 @@ display:flex;
 height:auto;
 width:100vw;
 text-align:center;
+  align-items:center;
 }
 .footer-section div{
 height:15vh;
 width:25vw;
+  overflow:hidden;
 }
 #div1 img{
 height:4rem;

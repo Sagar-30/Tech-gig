@@ -1,0 +1,119 @@
+React hooks:=> only used in function component
+
+Main Points:-
+   a) React 16+ versions introduced  "React Hooks" as alternative form component life cycle hooks.
+    b)Component life cycle hooks are available only for class components - (mounting, updating, unmounting)
+     c)React Hooks are not replacement for component life cycle hooks, they are just alternative
+      d)React 16+ versions provides several built-in hooks and also allows to create custom hooks.
+       e) React Hooks are backward compatible.(Matlab agar koi hook react 18 mei aaya hai toh use hm log react ke pichle version mein bhi use kr skte hain).
+
+Note: Component LifeCycle Hooks are only about life cycle events.
+         React Hooks are more than Life Cycle.
+
+
+Pre-define React Hooks:
+----------------------------------
+useToggle
+useFirestoreQuery
+useMemoCompare
+useAsync
+useRequireAuth
+useRouter
+useAuth
+useEventListener
+useWhyDidYouUpdate
+useDarkMode
+useMedia
+useLockBodyScroll
+useTheme
+useSpring
+useHistory    “react-router-dom”
+useLocation     “react-router-dom”
+useParams     “react-router-dom”
+useScript
+useKeyPress
+useMemo
+useDebounce
+useOnScreen
+usePrevious
+useOnClickOutside
+useAnimation
+useEffect
+useState
+useLocalStore
+useHover  etc.
+
+Rules for Configuring Hooks:
+1. React Hooks can't be defined in Class.
+2. React Hooks only for function component.
+3. Hooks must be at top level.
+4. You can't define hooks inside a JavaScript function.
+5. Can't use hooks in conditions and iterations.
+
+
+Hooks :-
+
+   1==>                  useState
+                    -------------------
+
+- It configures a state for component.
+- State can store values and make it available until the component unmount.
+- You can store any value into state.
+
+Syntax:
+           const [product, setProduct] = useState();
+		    setProduct();
+
+ 
+   
+   2==>                  useEffect
+                    -------------------
+
+   - It can manage
+        a) mounting
+        b) updating
+        c) unmount  in function
+
+syntax:  
+           useEffect(()=>{
+		   //actions on mount
+		   //actions on update
+		   return(()=>{
+		   //actions on unmount
+		   })
+		   },[//dependency])
+
+
+   3==>                  useContext    
+                    -------------------
+Remember- create,provide,use	
+
+- what is context memory?
+    it is the memory allocated for component and accesable to other component that run within the context of current component.
+
+what is the purpose of context memory?
+it enables sharing of data across components configure in multi-level hierarchy.
+A higher component can share it's data to lower component.[outer to inner]
+it also enables to share data across multiple request of same component.
+
+implementing context using react hook-
+----------------------------------------
+context uses dependency injection machenism(DI).
+DI is a technique that define how an object get holds of it's dependencies
+It is about how it locates and injects the dependencies.
+
+DI depend on 2 components - 
+1. provider
+2. injector
+
+provider is responsible for locating the dependencies in memory.
+   [stores and locate data]
+
+injector is responsible to inject the data into component.
+
+react "useContext" use both provider and injector
+
+"useContext" acts as a service
+     service follow "single ton" pattern (means ek object pehli request pr create ho jayega aur fir aage jitni baar bhi use krna hoga use hi krenge).
+
+Note:- Every pre defined hook in react is a service that why we use use before every hook because we are using a service.

@@ -117,3 +117,67 @@ react "useContext" use both provider and injector
      service follow "single ton" pattern (means ek object pehli request pr create ho jayega aur fir aage jitni baar bhi use krna hoga use hi krenge).
 
 Note:- Every pre defined hook in react is a service that why we use use before every hook because we are using a service.
+
+
+   4==>                  useCookies
+                  --------------------
+
+The `useCookies` hook is a tool in React that helps you manage cookies in your web applications. Cookies are small pieces of data that a website can store on a user's computer.
+They are commonly used for tasks like remembering user preferences, tracking user sessions, and more. The `useCookies` hook simplifies the process of working with cookies in your React projects.
+
+syntax - 
+            import { useCookies } from 'react-cookie';
+
+	    const [cookies, setCookie, removeCookie] = useCookies(['cookieName']);
+
+
+- `cookies`: This is an object that represents your cookies. You can access the values of your cookies using `cookies.cookieName`, where `'cookieName'` is the name of your cookie.
+
+   - `setCookie`: This function allows you to set a cookie. You provide it with a name, a value, and optional configuration options like expiration date and domain.
+
+   - `removeCookie`: This function lets you remove a cookie by its name.
+
+Ex -
+    const handleLogin = () => {
+    setCookie('username', 'john_doe', { path: '/', expires: new Date('2023-02-15T23:46:00') });
+    setCookie('gender', 'male', { path: '/' });
+    setCookie('password', 'mySecurePassword', { path: '/' });
+  };
+    
+      removeCookie('username');
+
+
+
+   5==>                  useReducer
+                  -------------------------
+
+- useReducer is a alternate of useState
+- `useReducer` is a React hook for managing complex state logic.
+- It's useful when state updates depend on previous state or involve multiple actions.
+- It involves a reducer function that specifies how state changes based on actions.
+- You dispatch actions to request state changes.
+- React re-renders the component when state changes occur.
+
+Syntax:-
+const initialstate = { like:0 };
+
+function reducerFunction(state, action) {
+switch(action.type){
+case'like':
+return {like : state+1}
+default:
+return state;
+}
+}
+
+const [state, dispatch] = useReducer(reducerFunction, initialState);
+
+<button onClick={()=>dispatch(type:'like')}>Like</button>
+
+- `state`: Current state value.
+- `dispatch`: Function to send actions.
+- `reducerFunction`: Function that handles state changes.
+- `initialState`: Initial state value.
+
+
+

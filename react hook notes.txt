@@ -181,3 +181,20 @@ const [state, dispatch] = useReducer(reducerFunction, initialState);
 
 
 
+ 6==>                  custom Hooks
+           --------------------------------------
+
+why we create and need a hook?
+
+creating a custom hook means creating a new service. so we implement and inject in our application.
+ Ex- 1. captcha is also a service we inject it in our website for form verification.
+       2. many time in form we saw signup with google/facebook this is called open Id and this is a service.
+           search for (open Id) and use.
+
+Basic Rules for making custom hooks.
+
+1. custom hook must be a function and must return any value.
+2. Make sure that fxn handle exception.(i.e catch the problem and handle by .catch)
+3. it returns exceptions.
+
+

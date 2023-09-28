@@ -291,10 +291,45 @@ consumer:
 - axios
 - whatwg-fetch
 
-               Mongodb database
+               Mongodb database  (it's json based)
           ---------------------------
 
-1. download and install mongo
+1. download and install mongodb 
+2. open mongoDb Compass
+3. Connect with MongoDB server using
+     "mongodb://127.0.0.1:27017"
+
+
+oracle,MySql         MongoDB
+Database             Database
+Table                Collections
+Records              Documents
+Fields               Fields
+joins                Enbedded Documents
+                      (Json)
+
+4. Create a new Database
+ ex - 
+    database name    :reactdb
+    collection name  :tblusers
+
+5. insert document into table[collection] => Add Data => insert document
+{
+  "UserId": "kaushik4229",
+  "userName": "Sagar",
+  "gender": "Male",
+  "Age": 23,
+  "number": "9299338839222"
+  
+}
+
+                                 Server Side API
+                               [Node.js and Express]
+                    --------------------------------------------
+
+Get       /getusers
+Get       /getusers/userId
+POST      /registeruser
 
 
 

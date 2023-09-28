@@ -197,4 +197,124 @@ Basic Rules for making custom hooks.
 2. Make sure that fxn handle exception.(i.e catch the problem and handle by .catch)
 3. it returns exceptions.
 
+Ex-
+    1. make new file and pass a url as fxn argument and return stored state after fatching the url.
+  2. import that hook in any another component.
+3.Store hook in const and pass the url as argument.
+4. use var name to access data we can also use map on that to access data.
+
+
+----------------------------------------------------------------------------------------------------------------------------
+                                            Working with API's
+
+ques - what is distributed computing?
+ans -  two application running or 2 diff machines can share information 
+    -  two app running or same machine in two diff process can share information.
+
+Q - popular distributed computing technologies?
+ - CORBA
+- DCOM
+- RMI
+- EJB
+-Web services
+-Remoting
+
+3. communication Specification=>
+-SOAP
+-REST
+-JSON
+
+4. Api uses distributed computing architecture
+   API compriises of -
+         a) Service Consumers
+         b) Service Provider
+     API communication managed in 3 ways - 
+     soap , rest , json
+
+SOAP- (Service oriented Architecture protocol)
+    consumer will make an XML request and provider will send an XML response
+EX - 
+Request:
+<product>
+<id>2</id>
+</product>
+
+Resoponse:
+<product>
+<id>2</id>
+<Name>Tv</Name>
+<price>2000</price>
+</product>
+
+
+2. REST (restfull services) ==> (Representational state Transfer)
+ - consumer will make query request and provider will send ressponse with XML or JSON
+Ex - 
+     Request:
+             http://fakestoreapi.com/products?id=2
+Resoponse:
+<product>
+<id>2</id>
+<Name>Tv</Name>
+<price>2000</price>
+</product>
+
+JSON: (js object Notation) ==> Mostly used and recommended
+- consumer makes json request and provider send json response
+
+request:
+{
+"id":2
+}
+
+Response
+{
+"id":2,
+"name":"TV",
+"price":4500
+}
+
+                Design API:-
+          .........................
+
+Design End Points:- 
+
+Provider:
+  MongoBd       database
+  Node.js       Server
+  Express       API
+
+consumer:
+   React      UI
+ - fetch()
+-  $.ajax()
+- axios
+- whatwg-fetch
+
+               Mongodb database
+          ---------------------------
+
+1. download and install mongo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

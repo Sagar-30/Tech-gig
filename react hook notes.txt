@@ -2,7 +2,7 @@ React hooks:=> only used in function component
 
 Main Points:-
    a) React 16+ versions introduced  "React Hooks" as alternative form component life cycle hooks.
-    b)Component life cycle hooks are available only for class components - (mounting, updating, unmounting)
+    b)Component life cycle hooks are available only for class components - (mounting, updating, unmounting) 
      c)React Hooks are not replacement for component life cycle hooks, they are just alternative
       d)React 16+ versions provides several built-in hooks and also allows to create custom hooks.
        e) React Hooks are backward compatible.(Matlab agar koi hook react 18 mei aaya hai toh use hm log react ke pichle version mein bhi use kr skte hain).
@@ -331,8 +331,62 @@ Get       /getusers
 Get       /getusers/userId
 POST      /registeruser
 
+                             React API Requests
+              ---------------------------------------------------
+Q- Which object Manages Ajex requessts in js basedapplications?
+   XmlHttpRequests
+- react can use js httpRequestmethod and promises.
+ -Fetch
+     disadvantage of fetch- * it return data into binary form which is convert into json.
+                             * it need explicit XmlHttpRequest object to monitor the errors.
+ - React can use third party library to intrect with API -
+A) jQuery Ajax
+b) Axios
+c) Whatwg-Fetch etc..
 
+                         jQuery Ajax with React
+      ----------------------------------------------------------------
 
+-It return data directly in Json (don't need to convert)
+-Advanced error handeling method
+-Handle all request like GET,POST,PUT,DELETE etc.
+
+disadvantage- 
+ - CORS issue
+- Injection issues
+-XSS
+-Request Forgery
+
+API Request -
+ Get    http://localhost:4000/getuser
+ POST   http://localhost:4000/registeruser
+
+1. Install jquery library for react project.
+
+     >npm install jquery --save
+
+2. import jQuery library into component
+   import $ from 'jquery';
+
+3. Access jQuery Ajax methods
+$.ajax({ajaxOptions})
+
+ method  : request method GET /POST
+ url     : API url
+ success : Callback function on sucess
+ error   : callback function on error
+
+Syntax:
+      $.ajax({
+        method:"GET|POST",
+        url:"API_URL",
+        sucess:function (response){
+          //Response data is JSON
+	}
+       error:function (response){
+          // xhr.ststusCode(404,200,300), ststusText(not found,ok etc.), headers
+	}
+      })
 
 
 

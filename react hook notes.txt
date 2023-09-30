@@ -388,6 +388,212 @@ Syntax:
 	}
       })
 
+                                            Axios for communication wit api
+                        ---------------------------------------------------------------------------------
+
+- third party hai
+-return data in json and handles CORS
+-More secure,prevent XSS,Request Forger etc.
+-Better Error Tracking
+
+syntax: Promise ==>
+  axios({
+method:"GET|POST",
+url:"API_url",
+data:"data_to_post"
+  }).then(callback on success)
+    .catch(callback on faliure)
+.finally(callback on finally)
+
+         OR
+
+syntax:
+    axios.get("url").then().catch().finally()
+
+         OR
+
+syntax:
+    axios({
+[
+       {method,url,}          -[0]
+       {method,url,}          -[1]
+
+]
+    })
+
+-Axios response object comprises of various response details like:-
+
+statusCode       200,404,302
+statusText       OK,Not found,method
+headers          Content-Type, MIME Type, Request Type
+data             Data present in requested url
+
+
+-Axios post
+
+axios.post("url",data);
+
+axios({
+method:"POST",
+url:"API_url",
+data:"values"
+  })
+
+1. install axios librery
+  >npm install axios --save
+
+2. import axios from 'axios'
+
+
+
+                                                 React Routing
+                                     --------------------------------------
+
+- Web app uses various types of objects and techniques.
+-Regular object in web developement
+   1. Request
+   2.Response
+   3.Session
+   4.Application
+   5.Cookies etc..
+
+-Regular techniques in Web Developoment
+
+ 1. Caching
+ 2. Model Binding
+ 3. Data Binding
+ 4. Event Binding
+ 5. Style Binding
+ 6. Class Binding
+ 7. Routing etc..
+
+
+-Routing is a technique used in modern web applications to configure USER and SEO friendly URL's.
+-User Friendly URL allows the user to query any ccontent directly from url.
+
+without Routing:
+http://www.amazon.in/electronics.aspx?category=mobile&model=samsung
+
+With Routing:
+http://www.amazon.in/electronics/mobile/samsung
+
+-SEO friendly url allows search engines to identify the exact location in page. It mostly require for analytics.
+
+-Routing implicitly uses Ajax.
+-It can load new details into page without reloading the page.
+-User can stay of one page and can get access to everythiing onto the page.[SPA(single page application)]
+-React uses "react-router-dom" library for buildin SPA.
+-it is a routing library for react
+-React 18 uses routing library version "V6" before 18 routing library was "V5"
+
+1. Install React Router Library
+
+ >npm install react-router-dom --save
+
+>npm install react-router-dom@v5 --save =>(for older version).
+
+
+                                             Basic Routing Component
+                        ----------------------------------------------------------------
+
+1. BrowserRouter : it transcompiles the virtual route into actual browser route.
+
+  import {BrowserRouter as Router } from 'react-router-dom';
+<Router>
+..Router
+</Router>
+
+          (or)
+import{BrowserRouter} from 'react-router-dom';
+<BrowserRouter>
+..Router
+</BrowserRouter>
+
+FAQ: Which browser object of js can handle navigation?
+Ans:location object
+  [location.href]
+
+2. Routes: collection of routes defined for application.
+            it creates a routing table
+
+syntax:
+         <BrowserRouter>
+<Routes>
+ ...routes
+</Routes>
+         </BrowserRouter>
+
+3. Route: it is used to configure a route
+           Every route is anobject with set of properties.
+
+    {
+exect,
+index,
+path,element
+    }
+
+syntax:
+ <Route path="" element={} index exact> </Route>
+
+Ex- 
+ <BrowserRouter>
+<Routes>
+<Route path="" element={} index exact> </Route>
+<Route path="" element={} index exact> </Route>
+</Routes>
+         </BrowserRouter>
+
+-Route can have a collection of child route.
+
+-Route can also have route parameters.
+<Route path="" element={}>
+  <Route path =":param" element={} />
+</Route>
+
+-Route can also have search parameters.
+
+<Route path="" element={}>
+  <Route path =":param?key=value&key=value" element={} />
+</Route>
+
+[Mostly used in ad-hoc querying]
+
+4. Link : it generates a router link (like anchor tag but it'd different)
+          it navigates to specific path configured in route table.
+
+syntax:
+<Link to="routePath"> Text/image </Link>
+
+5. Outlet : it configures the target loication where the resulting markup must be rendered.(page mein kaha pe render krna hai data isse decide ke skte hain).
+
+syntax:
+<Main>
+<outlet />
+</Main>
+
+Summery:=> BrowserRouter, Routes, Route, Link, Outlet
+
+***********  1.  Route can use markup directly from element
+ [It can render markup directly as result]
+
+syntax:
+<Route path="" element={<div>any Content</div>} />
+
+2. if user is not requesting any specific path then we can define default container to render.
+<Route path="/" element={default content to rennder} />
+
+
+3. if user is requesting a path and it is not available in app then you can render wild card route.
+
+syntax:
+<Route path="*" element={content to render if requested path is not found} />
+
+
+
+
+ 
+
+
 
 
 

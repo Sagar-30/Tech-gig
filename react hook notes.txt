@@ -621,6 +621,78 @@ ref.Param2                (Param2  = value2)
 
 
 
+                                       Nested Routes
+                       --------------------------------------------
+
+-In module system we can configure nested routes. (Module mein bahut sare components ho skte hain)
+-Every module can have individual routes.
+
+Syntax:  (Jaise har ek module ke liye alag login/register button dena ho toh)
+
+  <Route path="/personal" element={}>
+Route path="/login" element={<Login />}>
+Route path="/register" element={<Register / >}>
+</Route>
+
+<Route path="/personal" element={}>
+Route path="/login" element={<Login />}>
+Route path="/register" element={<Register / >}>
+</Route>
+
+--Nested Routes are also used for configuring route Parameters.
+
+<Route path="/products" element={<Products />}>
+Route path=":id" element={<Details />}>
+</Route>
+
+              OR
+
+<Route path="/products/:id" element={<Details />} />
+
+-The routes resulting marking is renderd at any specific location using an Outlet.
+
+import {outlet} from 'React-router-dom';
+
+<Link to="/path">Click</Link>
+<Outlet />
+
+
+FAQ: Can wedefine multiple outlet in component?
+Ans: Yes. But not recommended.
+
+
+                                     Route Hooks
+                          ---------------------------------
+
+-useParams() ==> using in latest version .
+  -Access Route parameters
+-useSearchParams()
+     -Access query string
+    -seralizeFormQuery
+    -location.search
+-useNavigate() ==> using in latest version . 
+   -Dynamically navigating to any specific URL.
+-useLocation()
+  -Provide access to location object of DOM.
+   -it can return href,pathname etc.
+-useHistory()
+   - it can access the browser history.
+   - it can push anny content into history
+
+interxiew question on Route==>
+Route cycle =>
+ 1. Browser Router - Map the virtual route to actual DOM.
+ 2. configure route table - creating route collection
+3. configure <Route>
+4.configure request and response 
+ -path:          define request
+ -element:       define response
+
+5. configure outlet
+
+
+
+
 
  
 

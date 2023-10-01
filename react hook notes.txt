@@ -690,8 +690,12 @@ Route cycle =>
 
 5. configure outlet
 
-
-
+Q- Authenticate routes -(Allowing only valid users to the router and decline other users)
+  react will not provide any pre-defined servicefor route authentication
+-we have to explicitly implement by using techniques like
+  a) state
+  b) Cookie
+  c) Redux
 
 
  

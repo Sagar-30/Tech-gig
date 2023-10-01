@@ -1,4 +1,4 @@
-React hooks:=> only used in function component
+	React hooks:=> only used in function component
 
 Main Points:-
    a) React 16+ versions introduced  "React Hooks" as alternative form component life cycle hooks.
@@ -587,6 +587,37 @@ syntax:
 
 syntax:
 <Route path="*" element={content to render if requested path is not found} />
+
+
+FAQ- how to navigate to any pecific path dynamically (on button click like login ke baad kahan pr bhejna hai)
+- By using useHistory() or "useNavigate()" ==> in latest version we use useNavigate(). 
+
+Ans- 
+1. import {useNavigate} from "react-router-dom";
+2. use onclick on that button
+3.let Navigate = useNavigate();
+   function buttonClick(){
+Navigate("/login");
+   }
+
+
+                                        Route Parameter
+                           -----------------------------------------------
+
+-Parameter allow to query any content directly from url.
+-Parameter is also used to transport data from one component to another.
+
+Step-1: configure route path that can accept parameter.
+   <Route path="Name/:Param1/:Param2" element={} />
+
+step-2: Route parameter are passed with actual values from URL.
+     URL: Name/value1/value2
+
+step-3: Access route parameters using "useParam()" route hook.
+
+let ref= useParam(); ==>(Object with key and value)
+ref.Param1;              (param1 = value1)
+ref.Param2                (Param2  = value2)
 
 
 

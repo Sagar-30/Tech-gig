@@ -699,6 +699,145 @@ Q- Authenticate routes -(Allowing only valid users to the router and decline oth
 
 
  
+-----------------------------------------------------REACT REDUX -------------------------------------------------------------------------------------------------
+
+Redux- Redux is a predictable state container for js apps.
+   React is a library for js apps
+   Redux is a state container.
+
+
+----------Core concepts of redux-
+
+1. Store  - Holds state of application
+2. Action - Describe the changes in the state of application
+3. Reducer - Actually carries out the state transition depending on the action
+
+---------------Rules of redux -
+
+1. The state of your application is stored in a object tree within a single store =(Matlab store mein ek hi object hoga uske under hmkitne bhi state store kr skte hain but object sirfek hi hoga)
+{
+Books:10;
+}
+
+2. State ko bina action ke change nahi kr skte change ke liye action use krna hi padega.
+Ex- 
+{Type:'BuyBooks'}==>(type is a property of action)
+
+3. To specify how the state is transformed by actions, we write pure reducer.
+
+----------------Redux Action
+.Action are js object that contain information.
+.Action have a type property and it should be defined in string constrains.
+It is compulsory to include the tpe property inyhe object.
+
+syntax: const Actions:{
+type:'Add'
+}
+
+Note => it is recommended that given must be constant (Toh hm do file bnayenge ek mein bs type define krnge aur dusre mein action returnkr denge)
+
+Ex- file-1: 
+export const Buy_Book = "ButBook";
+
+File-2: 
+import {Buy_Book} from "";
+
+const purchage_book =()=>{
+return {
+type: Buy_Book
+}
+}  =>(yeh return k object krega isiliyr curlybraces {} )
+
+
+----------------Redux Reducer
+.Reducers are pure functions that specify how the state changes in response to actions. They take the current state and an action and return the new state
+
+>It accepts two parameters :-
+1. State
+2. Action
+
+(InitialState , action ) => newState
+
+Ex - 
+const initialstate = { like:0 };
+
+export default function reducerFunction(state, action) {
+switch(action.type){
+case'like':
+return {like : state+1}
+default:
+return state;
+}
+}
+
+
+----------------Redux Store
+
+1. Puri application ke pass single store hota hai aur yeh state ko hold krke rakhta hai.
+
+Inbuild methods:- getState(),dispatch,subscribe
+
+2. getState() se hm state access kr skte hain.
+3. dispatch(action) se state update kr skte hain.
+4. it has subscribe(listener) method as well by which we can register listener.
+    this method accept function (listener) as a parameter which execute anytime when the state in redux store changes.
+
+Syntax:-
+
+import {createStore} from 'redux'
+import {Provider} from 'react-redux' => (provide root level par use hota hai)
+import reducerFunction from ''
+
+const store = createStore(reducerFunction)
+
+<Provider store={store}>   ==>(Passing store a prop)
+<Provider>
+
+--------------React-redux Hooks 
+
+
+React-redux offer set of hook to - subscribe to redux store and dispatch actions.
+
+1. UseSelector Hook - by this we can access the state in store. 
+                       useSelector is a hook in React-Redux that helps you get information from the Redux store.
+      
+syntax- 
+   It takes a selector function as an argument and returns the selected data from the store.
+     
+const selectedData = useSelector(selector Fxn)
+
+ Ex-  
+  import {useSelector} from 'react-redux'
+
+export default function data(){
+const number = useSelector(state => state.NoofBooks)  ==>(State se no. of books access kiya)
+
+return(
+<h1{number}></h1>
+)
+}
+
+---------------------------------------------------
+
+2. useDispatch hook =>
+   if we want to update state then we can do it with using useDispatch hook.
+  it provide a reference of the dispatch function from the redux store.
+
+syntax - 
+     const dispatch - useDispatch()
+
+Ex - 
+     import (useDispatch) from 'react-redux';
+     import {purchage_book} from 'action'
+const dispatch = useDispatch()
+
+return(
+<button onClick={()=>dispatch(purchage_book())}></button>
+)
+
+
+
+
 
 
 

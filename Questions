@@ -1,0 +1,7 @@
+Html - 
+     1. semantic tags - they describe the type of content they enclosing like <header>, <nav>, <article>, and <footer
+     2. Void tags - these tags don't have closing tags.
+     3. xhtml - it is Extensable hyper text markup language . it is more strict then html.This strictness means that all elements and attributes must be properly nested, closed, and in lowercase.
+     4. diff b/w p & br - p is block level while br is inline it just gives a break to a line within a block it does not create new block.
+     5. HTML entities - special codes or character references used in HTML to display characters that have a special meaning in HTML or characters that are not easily typed directly in the HTML code.
+                     Ex- &, and &lt;

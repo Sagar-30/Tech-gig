@@ -1,0 +1,39 @@
+.contact-section-main{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.contact-section-div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height:18vh;
+    width:60vw;
+    color:white;
+    background-color: orange;
+    margin-left: 18vw;
+    transform: translateY(-1rem);
+}
+.contact-section-div hr{
+    height: 100%;
+}
+.contact-first-p{
+    font-size: medium;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 1rem;
+}
+.contact-section-div span{
+    font-weight: 700;
+}
+.contact-second-p{
+    font-size: medium;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: 1px solid black;
+    padding:1rem;
+    border-radius: 8px;
+}
+.contact-second-p:hover{
+    background-color: white;
+    color:orange;
+}

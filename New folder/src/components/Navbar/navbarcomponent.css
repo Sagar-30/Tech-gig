@@ -1,0 +1,31 @@
+.navbar-section-main{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.navbar-icon-div{
+    padding:1rem;
+}
+.navber-links-div{
+    padding:1rem;
+}
+.navber-links-div ul{
+list-style-type: none;
+display:flex;
+justify-content:space-around;
+color:black;
+}
+.navber-links-div ul li{
+padding:0 1rem;
+}
+.navber-links-div ul a{
+    color:black;
+    transition: .2 ease-in-out;
+    text-decoration:none;
+    }
+ .navber-links-div ul a:hover{
+        color:blue;
+        
+        }
+
+        

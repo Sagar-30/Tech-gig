@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400&family=Young+Serif&display=swap');
+
+.Rent-section-main h5{
+    font-size: large;
+    font-family: 'Young Serif', serif;
+}
+.Rent-section-main p{
+    font-family: 'Martian Mono', monospace;
+    padding:1rem;
+}
+
+.Rent-section-top{
+    text-align:center;
+}
+ 
+.Rent-section-bottom{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    margin-bottom: 1.5rem;
+}
+.Rent-section-bottom div{
+    width: 20vw;
+}
+.Rent-section-bottom-img1{
+    height:100%;
+    width:25vw;
+}
+.Rent-section-bottom-imges{
+    height:30vh;
+    width:20vw;
+}
+.Rent-section-bottom p{
+    font-size:1.3rem;
+}

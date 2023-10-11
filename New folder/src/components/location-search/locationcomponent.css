@@ -1,0 +1,60 @@
+
+.location-top-section{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:80vw;
+    margin-left:10vw;
+    background-color:white;
+    transform:translateY(-50px);
+    box-shadow: 1px 2px 2px lightgrey;
+}
+.location-left-div{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    gap:1.5rem;
+    /* padding: */
+}
+.location-left-div-text{
+    font-size:5vh;
+    font-weight:500;
+    padding:1rem;
+}
+.location-left-div-cities{
+    font-size:3vh;
+    font-weight:100;
+    padding:1rem;
+}
+.location-left-div-cities select{
+padding:.5rem;
+margin:.3rem;
+width:13vw;
+}
+
+.location-left-div-start-date{
+    font-size:3vh;
+    font-weight:100;
+    padding-right:1rem;
+}
+.location-left-div-start-date input{
+    padding:.2rem;
+    margin:.6rem 0.1rem;
+    width:12vw;
+}
+
+.location-left-div-end-date{
+    font-size:3vh;
+    font-weight:100;
+    padding:1rem;
+}
+.location-left-div-end-date input{
+    padding:.2rem;
+    margin:.6rem 0.1rem;
+    width:12vw;
+}
+
+.location-top-section span{
+    padding-right:3rem;
+    /* height */
+}

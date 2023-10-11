@@ -1,0 +1,22 @@
+.Popular-section-main{
+    background-image: url('https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Touring_Bird_Expansion_-hero.width-600.format-webp.webp');
+     display:flex;
+     flex-wrap: wrap;
+     background-repeat: no-repeat;
+     background-size: cover;
+}
+.Popular-section-main div{
+    width:49.3vw;
+    height:25vh;
+    text-align:center;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: start;
+    box-sizing: border-box;
+}
+.Popular-section-main div p{
+    padding:1.5rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size:large;
+    color:white;
+}

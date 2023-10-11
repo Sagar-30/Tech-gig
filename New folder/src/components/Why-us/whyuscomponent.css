@@ -1,0 +1,33 @@
+.whyus-section-top{
+    text-align: center;
+    
+}
+.whyus-section-top h3{
+    font-size:2.5rem;
+    margin: 1rem;
+}
+.whyus-section-top p{
+    font-size:1.5rem;
+    margin: 1rem;
+}
+.whyus-section-bottom{
+    display: flex;
+    margin: 3rem 0;
+}
+.whyus-section-bottom-div1 div{
+width:33vw;
+text-align: end;
+height:50%;
+}
+.whyus-section-bottom-div2 img{
+    height:auto;
+    width:33vw;
+}
+.whyus-section-bottom-div3 div{
+    width:33vw;
+    text-align: start;
+    height:50%;
+    }
+.whyus-section-bottom h2{
+      padding: 4rem;  
+    }

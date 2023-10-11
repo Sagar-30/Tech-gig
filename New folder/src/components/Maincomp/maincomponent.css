@@ -1,0 +1,67 @@
+.main-section-top {
+    position: relative;
+}
+
+.main-section-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0); /* Black with 0.5 (50%) opacity */
+    z-index: -1;
+}
+.main-section-top{
+    background-image: url('https://www.westend61.de/images/0000915833pw/happy-man-riding-motor-scooter-amidst-trees-CAVF39809.jpg');
+    background-color: rgb(255, 0, 0);
+    opacity: 0.8;
+    background-position:center;
+    height:85vh;
+    background-size:100% 100%;
+    background-attachment: scroll;
+    overflow:hidden;
+} 
+.main-section-transparent-div{
+    height:150%;
+    width:36vw;
+    background:rgba(0,128,0,0.8);
+    transform: rotate(20deg)  translate(0px,-180px);
+    z-index: 2;
+    
+}
+.main-section-text-div{
+    position: absolute;
+    top:20%;
+    left: 7%;
+    z-index: 8;
+    color:white;
+    width:40vw;
+}
+.main-section-text-div p{
+    font-family:roboto;
+    font-weight:800;
+    font-size:10vh;
+}
+.main-section-text-div button{
+padding:1rem;
+margin:2rem;
+}
+.main-section-circle-div{
+    height:auto;
+    width:auto;
+    position: absolute;
+    top:60%;
+    left: 30%;
+    z-index: 8;
+    font-weight:400;
+    font-size:3vh;
+    background-color:red;
+    color:white;
+    border-radius:50%;
+    padding:2rem;
+}
+.main-section-circle-div span{
+    font-weight:800;
+    font-size:5vh;
+}

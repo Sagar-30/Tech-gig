@@ -1,0 +1,210 @@
+What is the difference between `slice` and `splice` in JavaScript?
+
+Ans-18 Slice and splice are js array methods slice is used to create a new array out of an old array.we can select start point and end point init.
+Ex - let num = [1,2,3,4,5,6,7];
+let num1 = num.slice(2,5);
+console.log(num1);
+
+in other hand splice is used to add values at certain index.it does not create new array it modifies old one.We can also delete Values
+Ex- let num = [1,2,3,4,5,6,7];
+  num.splice(2,0,9,9,9) //first argument is index,second is howmany values we want to delete and other are values
+console.log(num)
+
+
+19.How do you iterate/loop over objects in JavaScript? 
+
+Ans-19 multiple methods of object iteration- for in method, object.keys , object.entries
+method-1: by for in we can get keys and print them 
+let num2 = {id:2 , name:'Sagar' , active:true , age: 23};
+          for(keys in num2){
+              console.log(keys);
+                             }
+
+method-2:Object.keys can return only keys
+ let num2 = {id:2 , name:'Sagar' , active:true , age: 23};
+let num3 = Object.keys(num2);
+
+num3.map((data)=>{console.log(data)});
+
+
+method-3:Object.entries return an array of both keys and values which we can print.
+let num2 = {id:2 , name:'Sagar' , active:true , age: 23};
+let num3 = Object.entries(num2);
+
+num3.map((data)=>{console.log(data[0] ,data[1])});
+
+20.Explain the concept of a callback hell and how to avoid it.
+
+Ans-20 if we have multiple callback functions and all are depanding on each other so we have to call them inside of each other which can be very hard to 
+debug and not easy to maintain code and it also decrease the redablity of the code.this is called callback hell.
+To avoid it we use promises.
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+2. ES6+ Features:
+   - Arrow functions => normal fxn without function declaration = ()=>{}
+   - Template literals => Used to concaadinate two strings
+   - Destructuring assignment
+   - Spread/rest operators
+   - Let and const
+   - Classes and inheritance
+   - Modules 
+
+    Destructuring assignment => Allows use to extract data from array, obj and assign them into local variables
+   Ex- let arr = ['ok' , 23 , 'Sagar']
+let[status , age,name ]= arr;
+
+Spread/rest operators = 
+
+spread is used to unpack/expand elements from an array or object and place them into another array or object
+Ex-
+let a =[1,3,5,44,5,8,5,0];
+let b=[2,3,5];
+
+let c=[...a,...b];
+console.log(c);
+
+rest is used in function argument which means we can pass as much as argument we want
+
+Ex- function sum(...a){}
+
+Classes => class is a blueprint/template to create an object.we create class with class keyword.
+          We use constructor function in this.We create newclass with new keyword.
+
+Ex - class person{
+constructor(Name,Age){
+this.name = Name,
+this.age = Age
+}
+}
+let data = new person('Sagar',23)
+
+
+
+
+3. Async JavaScript:
+   - Promises => pending,fullfill,rejected
+   - `async` and `await`
+   - Fetch API or XMLHttpRequest
+
+
+   `async` and `await` => We use async keyword to create asynchronous function in this we don't have to use .then instead of that
+we use await keyword to wait for the output
+ 
+Ex-function newdata(){
+new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+    let a=10;
+    if(a>15){
+        resolve(console.log('Fine'))
+    }
+    else{
+        reject(console.log('Not Fine'))
+    }
+        },2000)
+})
+}
+
+    async function data(){
+        try {
+    const data = await newdata();
+}
+ catch (error) {
+    console.log(error)
+}
+}
+
+data();
+
+
+
+
+
+
+4. **DOM Manipulation:**
+   - Selecting and manipulating DOM elements  -getElementById,className,Tagname
+   - Event handling- onClick, onLoad, onKeyUp , onKeyDown , onmouseHover , onKeyPress
+   - Event delegation
+   - DOM traversal
+
+
+
+
+Event delegation - Event Delegation is basically a pattern to handle events efficiently. Instead of adding an event listener to each and every similar element,
+ we can add an event listener to a parent element and call an event on a particular target using the .target property of the event object.
+
+Like bubbling
+
+
+
+
+DOM traversal - DOM traversal is the process of navigating through the Document Object Model (DOM), which represents the structure of an HTML or XML document
+methods - parentNode , ParentElement,children , childNodes , firstChild , lastChild, firstElementChild , LastElementChild , nextsibling, nextElementSibling,previousSibling
+
+
+Ex -  let a = document.getElementById('name').parentNode ;
+         console.log(a);
+
+
+
+5. **Functional Programming:**
+   - First-class functions - When we can assign any function body to any variable or function call krte vakt pura function as an argument pass kr skte hain.js allow this.
+   - Higher-order functions - 
+   - Map, filter, and reduce
+   - Immutability
+
+Higher-order functions - jb function dusra function as a parameter le and return bhi function hi kare.
+
+
+
+- Map, filter, and reduce = teeno hi array methods hain
+
+filter=> used to filter/remove particular elements from an array and creates an new array.
+ Ex - let a = [1,2,3,4,5];
+let b = a.filter((data)=>{
+    if(data !=2){
+        return data;
+    }
+});
+
+console.log(b);
+
+map =>  It applies a given function on all the elements of the array and returns the updated array. It is the simpler and shorter code instead of a loop.
+
+reduce =>The reduce method is used to reduce an array to a single value.
+
+Ex - var myArray = [1, 2, 3, 4, 5];
+var sum = myArray.reduce(function(acc, cur) {
+    return acc + cur;
+}, 0);
+console.log(sum); // 15
+
+
+Immutability - if we can't change/modify the value 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

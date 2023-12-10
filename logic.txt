@@ -1,0 +1,206 @@
+ADX   -  TIME Period(Text)  , Horiz Line(Text) , ADX(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+ADXR  -  TIME Period , Horiz Line(Text) , ADXR(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+APO   -  Source(selectBox) , Fast Period(Text) , Slow Period(Text) , MA Type:(selectBox) , Horiz Line(Text), APO(color)(Solid,1.5px) ,Horiz Line(color)(Solid,1.5px)
+AROON  - TIME Period(Text)  , Horiz Line(Text) , Aroon Down(color)(Solid,1.5px),Aroon Up(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+AROON OSC - TIME Period(Text)  , Horiz Line(Text) , Aroon Osc(color)(Solid,1.5px),Horiz Line(color)(Solid,1.5px)
+ATR  - TIME Period(Text), ATR(color)(Solid,1.5px)
+AVG Price   - AVG Price(color)(Solid,1.5px)
+AVO  - Fast Period(Text) , Slow Period(Text) , MA Type:(selectBox) , Horiz Line(Text) , AVO(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+AWS Osc - Fast Period(Text) , Slow Period(Text) , MA Type:(selectBox) , AWS Osc(color)(color), AWS Osc(color)(color) , AWS Osc(color)(color)
+BB - Source(selectBox) , Time Period(Text) , Deviations(Text) , MA Type:(selectBox) , Upper BB(Text), Middle BB(color)(Solid,1.5px) ,Lower BB(color)(Solid,1.5px) ,Fill(color)(Solid,1.5px)
+BB %B - Source(selectBox) , Time Period(Text) , Deviations(Text) , MA Type:(selectBox), Overbought(Text), Oversold(Text) , BB %B(color)(Solid,1.5px) , Overbought(color)(Solid,1.5px) , Oversold(color)(Solid,1.5px) , Fill(color)(Solid,1.5px)
+BB Width -Source(selectBox) , Time Period(Text) ,Deviations(Text) , MA Type:(selectBox), BB Width(color)(Solid,1.5px)
+BOP - Horiz Line(Text) , BOP(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+CCI - TIME Period(Text)  ,Overbought(Text)  , Oversold(Text)  , CCI(color)(Solid,1.5px)  , Oversold(color)(Solid,1.5px)  , Oversold(color)(Solid,1.5px)  , Fill(color)(Solid,1.5px)  
+CHAIKIN A/D - CHAIKIN A/D(color)(Solid,1.5px)
+CHAIKIN MF -  TIME Period(Text)  , Horiz Line(Text) , CHAIKIN MF(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+CHAIKIN Osc  
+CHAIKIN Vol  
+CMO          
+COPPOCK      
+DC           
+DC Width     
+DEMA         
+DMI          
+EFI          
+EMA          
+ER Bear      
+ER Bull      
+HMA          
+KAMA         
+KC           
+LR Angle     
+LR Forecast  
+LR Intercept 
+LR Slope     
+MA           
+MA Env       
+MACD         
+MAMA         
+MAX          
+MED Price    
+MFI          
+MID Point    
+MID Price    
+MIN          
+MOM          
+NATR         
+NVI          
+OBV          
+PPO          
+PSAR         
+PVI          
+PVO          
+PVT          
+QSTICK       
+ROC          
+ROCP         
+ROCR         
+RSI          
+SMA          
+STD DEV      
+STOCH        
+STOCHF       
+STOCH RSI    
+T3           
+TEMA         
+TP           
+TR           
+TRIMA        
+TRIX         
+TSF          
+ULT Osc      
+VAR          
+VMA          
+VROC         
+VWMA         
+WAD          
+WCP          
+WILL %R      
+WMA          
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+
+const TradingForm = () => {
+  const [formData, setFormData] = useState({});
+
+  const indicatorConfig = {
+    ADX: {
+      timePeriod: { label: 'Time Period', type: 'text' },
+      horizLine: { label: 'Horizontal Line', type: 'text' },
+      adx: { label: 'ADX', type: 'color' },
+      horizLineColor: { label: 'Horiz Line Color', type: 'color' },
+    },
+    ADXR: {
+      timePeriod: { label: 'Time Period', type: 'text' },
+      horizLine: { label: 'Horizontal Line', type: 'text' },
+      adxr: { label: 'ADXR', type: 'color' },
+      horizLineColor: { label: 'Horiz Line Color', type: 'color' },
+    },
+    APO: {
+      source: { label: 'Source', type: 'select', options: ['Option1', 'Option2'] },
+      fastPeriod: { label: 'Fast Period', type: 'text' },
+      slowPeriod: { label: 'Slow Period', type: 'text' },
+      maType: { label: 'MA Type', type: 'select', options: ['Option1', 'Option2'] },
+      horizLine: { label: 'Horizontal Line', type: 'text' },
+      apo: { label: 'APO', type: 'color' },
+      horizLineColor: { label: 'Horiz Line Color', type: 'color' },
+      // Adding two select boxes after color input
+      selectBox1: { label: 'Select Box 1', type: 'select', options: ['Option1', 'Option2'] },
+      selectBox2: { label: 'Select Box 2', type: 'select', options: ['Option3', 'Option4'] },
+    },
+    // ... other indicator configurations
+  };
+
+  const handleInputChange = (indicator, name, value) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const renderFormFields = () => {
+    const indicator = 'APO'; // Replace with the selected indicator
+    const fields = indicatorConfig[indicator];
+
+    return Object.entries(fields).map(([name, config]) => (
+      <div key={name}>
+        <label>{config.label}:</label>
+        {config.type === 'text' && (
+          <>
+            <span>Before Text</span>
+            <input
+              type="text"
+              value={formData[name] || ''}
+              onChange={(e) => handleInputChange(indicator, name, e.target.value)}
+            />
+            <span>After Text</span>
+          </>
+        )}
+        {config.type === 'color' && (
+          <>
+            <input
+              type="color"
+              value={formData[name] || ''}
+              onChange={(e) => handleInputChange(indicator, name, e.target.value)}
+            />
+            {config.options && config.options.length > 0 && (
+              <>
+                <select
+                  value={formData.selectBox1 || ''}
+                  onChange={(e) => handleInputChange(indicator, 'selectBox1', e.target.value)}
+                >
+                  {config.options.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={formData.selectBox2 || ''}
+                  onChange={(e) => handleInputChange(indicator, 'selectBox2', e.target.value)}
+                >
+                  {config.options.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </>
+            )}
+          </>
+        )}
+        {config.type === 'select' && (
+          <select
+            value={formData[name] || ''}
+            onChange={(e) => handleInputChange(indicator, name, e.target.value)}
+          >
+            {config.options && config.options.length > 0 &&
+              config.options.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+          </select>
+        )}
+      </div>
+    ));
+  };
+
+  const handleSubmit = () => {
+    // Implement form submission logic here
+    console.log('Form Data:', formData);
+  };
+
+  return (
+    <div>
+      {renderFormFields()}
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+};
+
+export default TradingForm;

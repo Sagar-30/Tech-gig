@@ -204,3 +204,96 @@ const TradingForm = () => {
 };
 
 export default TradingForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
+ADX   -  TIME Period(Text)  , Horiz Line(Text) , ADX(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+ADXR  -  TIME Period , Horiz Line(Text) , ADXR(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+APO   -  Source(selectBox) , Fast Period(Text) , Slow Period(Text) , MA Type:(selectBox) , Horiz Line(Text), APO(color)(Solid,1.5px) ,Horiz Line(color)(Solid,1.5px)
+AROON  - TIME Period(Text)  , Horiz Line(Text) , Aroon Down(color)(Solid,1.5px),Aroon Up(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+AROON OSC - TIME Period(Text)  , Horiz Line(Text) , Aroon Osc(color)(Solid,1.5px),Horiz Line(color)(Solid,1.5px)
+ATR  - TIME Period(Text), ATR(color)(Solid,1.5px)
+AVG Price   - AVG Price(color)(Solid,1.5px)
+AVO  - Fast Period(Text) , Slow Period(Text) , MA Type:(selectBox) , Horiz Line(Text) , AVO(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+AWS Osc - Fast Period(Text) , Slow Period(Text) , MA Type:(selectBox) , AWS Osc(color)(color), AWS Osc(color)(color) , AWS Osc(color)(color)
+BB - Source(selectBox) , Time Period(Text) , Deviations(Text) , MA Type:(selectBox) , Upper BB(Text), Middle BB(color)(Solid,1.5px) ,Lower BB(color)(Solid,1.5px) ,Fill(color)(Solid,1.5px)
+BB %B - Source(selectBox) , Time Period(Text) , Deviations(Text) , MA Type:(selectBox), Overbought(Text), Oversold(Text) , BB %B(color)(Solid,1.5px) , Overbought(color)(Solid,1.5px) , Oversold(color)(Solid,1.5px) , Fill(color)(Solid,1.5px)
+BB Width -Source(selectBox) , Time Period(Text) ,Deviations(Text) , MA Type:(selectBox), BB Width(color)(Solid,1.5px)
+BOP - Horiz Line(Text) , BOP(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+CCI - TIME Period(Text)  ,Overbought(Text)  , Oversold(Text)  , CCI(color)(Solid,1.5px)  , Overbought(color)(Solid,1.5px)  , Oversold(color)(Solid,1.5px)  , Fill(color)(Solid,1.5px)  
+CHAIKIN A/D - CHAIKIN A/D(color)(Solid,1.5px)
+CHAIKIN MF -  TIME Period(Text)  , Horiz Line(Text) , CHAIKIN MF(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+CHAIKIN Osc - Fast Period(Text) , Slow Period(Text) , Horiz Line(Text) , CHAIKIN Osc(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px),
+CHAIKIN Vol  - MA Period(Text), MA Type:(selectBox), ROC Period(Text), Horiz Line(Text), CHAIKIN Vol(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)
+CMO - Source(selectBox) , Time Period(Text) ,Overbought(Text)  , Oversold(Text)  , CMO(color)(Solid,1.5px)  , Overbought(color)(Solid,1.5px)  , Oversold(color)(Solid,1.5px)  , Fill(color)(text) 
+COPPOCK - Source(selectBox) , WMA Period(Text) , Long Roc Period(Text) , Long Roc Period(Text) , Horiz Line(Text), COPPOCK(color)(Solid,1.5px) ,Horiz Line(color)(Solid,1.5px)
+DC  -  Time Period(Text) ,  Upper DC(color)(Solid,1.5px)  , Middle DC(color)(Solid,1.5px)  , Lower DC(color)(Solid,1.5px)  , Fill(color)(text) 
+DC Width -  Time Period(Text) ,  DC Width(color)(Solid,1.5px)
+DEMA -  Source(selectBox) , Time Period(Text) ,  DEMA(color)(Solid,1.5px)
+DMI - ROC Period(Text), Horiz Line(Text),  +DI(color)(Solid,1.5px)  , -DI(color)(Solid,1.5px)  , ADX(color)(Solid,1.5px)  , Horiz Line(color)(Solid,1.5px)
+EFI - Time Period(Text), MA Type:(selectBox), Horiz Line(Text), EFI(color)(Solid,1.5px)  , Horiz Line(color)(Solid,1.5px)
+EMA -  Source(selectBox) , Time Period(Text) ,  EMA(color)(Solid,1.5px) 
+ER Bear - Time Period(Text), MA Type:(selectBox),  ER Bear(color)(Solid,1.5px),  ER Bear(color)(color),   ER Bear(color)(color)
+ER Bull - Time Period(Text), MA Type:(selectBox),  ER Bull(color)(Text),  ER Bull(color)(color),   ER Bull(color)(color)
+HMA  -  Source(selectBox) , Time Period(Text) ,  HMA(color)(Solid,1.5px)    
+KAMA -  Source(selectBox) , Time Period(Text) ,  KAMA(color)(Solid,1.5px)  
+KC  -   Source(selectBox) ,  MA Period(Text), MA Type:(selectBox), ATR Period(Text) ,ATR Multiplier(Text) , Upper KC(color)(Solid,1.5px) , Basis KC(color)(Solid,1.5px) , Lower KC(color)(Solid,1.5px) , Fill(color)(text)
+LR Angle - Source(selectBox) , Time Period(Text) ,Horiz Line(Text) , LR (color)(Solid,1.5px),   Horiz Line(color)(Solid,1.5px)
+LR Forecast - Source(selectBox) , Time Period(Text) , LR Forecast(color)(Solid,1.5px)
+LR Intercept - Source(selectBox) , Time Period(Text) , LR Intercept(color)(Solid,1.5px)
+LR Slope  - Source(selectBox) , Time Period(Text) ,Horiz Line(Text) , LR (color)(Solid,1.5px),   Horiz Line(color)(Solid,1.5px)
+MA   - Source(selectBox) , Time Period(Text) , MA Type:(selectBox) , LR (color)(Solid,1.5px)
+MA Env - Source(selectBox) , Time Period(Text) , Percent(Text), MA Type:(selectBox) , Upper MA (color)(Solid,1.5px),  Basis MA (color)(Solid,1.5px), Lower MA (color)(Solid,1.5px), Fill(color)(text)
+MACD - Source(selectBox) , Fast Period(Text) , Slow Period(Text) ,Signal Period(Text) , Fast MA(selectBox), Slow MA(selectBox),Signal MA(selectBox), MACD (color)(Solid,1.5px), Signal (color)(Solid,1.5px), Hist(color)(Text), Hist(color)(color), Hist(color)(color)
+MAMA - Source(selectBox) , Fast Limit(Text) , Slow Limit(Text), MAMA (color)(Solid,1.5px), FAMA (color)(Solid,1.5px),
+MAX - Source(selectBox) , Fast Period(Text) ,MAX(color)(Solid,1.5px)
+MED Price  - MED Price(color)(Solid,1.5px)
+MFI - Time Period(text) , Overbought(Text) , Oversold(Text), MFI (color)(Solid,1.5px),Overbought (color)(Solid,1.5px),Oversold (color)(Solid,1.5px),Fill (color)(color)
+MID Point - Source(selectBox) , Time Period(Text) , MID Point (color)(Solid,1.5px)
+MID Price -  Time Period(Text) , MID Price (color)(Solid,1.5px)
+MIN  -  Source(selectBox) , Time Period(Text) , MIN (color)(Solid,1.5px)
+MOM  - Source(selectBox) , Time Period(Text) ,Horiz Line(Text)  , MOM(color)(Solid,1.5px) , Horiz Line(color)(Solid,1.5px)      
+NATR -  Time Period(Text) , NATR (color)(Solid,1.5px)
+NVI -  MA Period(Text) , MA Type(SelectBox), NVI(color)(Solid,1.5px), MA(color)(Solid,1.5px)
+OBV - OBV(color)(Solid,1.5px)
+PPO - Source(selectBox) , Fast Period(Text) , Slow Period(Text) ,  MA Type(SelectBox),Horiz Line(Text)  ,PPO(color)(Solid,1.5px) , Horiz Line(color)(Solid,1.5px)
+PSAR - Acceleration Fector(Text) , AF Maximum(Text), PSAR (color)(Solid,1.5px)
+PVI  -  MA Period(Text) , MA Type(SelectBox), PVI(color)(Solid,1.5px), MA(color)(Solid,1.5px)
+PVO  - Fast Period(Text) , Slow Period(Text) ,  MA Type(SelectBox),Horiz Line(Text)  ,PVO(color)(Solid,1.5px) , Horiz Line(color)(Solid,1.5px)    
+PVT - Horiz Line(Text)  ,PVT(color)(Solid,1.5px) , Horiz Line(color)(Solid,1.5px)    
+QSTICK - Time Period(Text) ,  MA Type(SelectBox),Horiz Line(Text)  ,QSTICK(color)(Solid,1.5px) , Horiz Line(color)(Solid,1.5px)
+ROC - Source(selectBox) , Time Period(Text) ,Horiz Line(Text)  , ROC(color)(Solid,1.5px) , Horiz Line(color)(Solid,1.5px) 
+ROCP - Source(selectBox) , Time Period(Text) ,Horiz Line(Text)  , ROCP(color)(Solid,1.5px) , Horiz Line(color)(Solid,1.5px)      
+ROCR - Source(selectBox) , Time Period(Text) ,Horiz Line(Text)  , ROCR(color)(Solid,1.5px) , Horiz Line(color)(Solid,1.5px) 
+RSI - Source(selectBox) , Time Period(Text) ,Overbought(Text) , Oversold(Text), RSI (color)(Solid,1.5px),Overbought (color)(Solid,1.5px),Oversold (color)(Solid,1.5px),Fill (color)(Text)
+SMA - Source(selectBox) , Time Period(Text),SMA (color)(Solid,1.5px)
+STD DEV -Source(selectBox) , Time Period(Text) , Deviations(Text)  , STD DEV(color)(Solid,1.5px)
+STOCH - Fast-K Period(Text), Slow-K Period(Text) , Slow-D Period(Text)  , Slow-K MA(Selecbox) , Slow-D Period(Selecbox),Overbought(Text) , Oversold(Text),SlowK (color)(Solid,1.5px),SlowD (color)(Solid,1.5px),Overbought (color)(Solid,1.5px),Oversold (color)(Solid,1.5px),Fill (color)(Text)
+STOCHF - Fast-K Period(Text), Slow-K Period(Text) ,  Fast-D MA(Selecbox),Overbought(Text) , FastK(Text),  FastD(Text) ,Overbought (color)(Solid,1.5px),Oversold (color)(Solid,1.5px),Fill (color)(Text)
+STOCH RSI - Source(selectBox) ,Time Period(Text) , Fast-K Period(Text) , Fast-D Period(Text)  , Fast-D MA(Selecbox),Overbought(Text) ,Oversold (Text),FastK RSI (color)(Solid,1.5px),FastD RSI (color)(Solid,1.5px),Overbought (color)(Solid,1.5px),Oversold (color)(Solid,1.5px),Fill (color)(Text),
+T3 - Source(selectBox) , Time Period(Text) , Volume Factor(Text)  , T3(color)(Solid,1.5px) 
+TEMA -Source(selectBox) , Time Period(Text) , TEMA(color)(Solid,1.5px)
+TP - TP(color)(Solid,1.5px)
+TR - TP(color)(Solid,1.5px)    
+TRIMA -Source(selectBox) , Time Period(Text) , TRIMA(color)(Solid,1.5px)
+TRIX - Source(selectBox) , Time Period(Text) ,Horiz Line(Text)  , TRIX(color)(Solid,1.5px) , Horiz Line(color)(Solid,1.5px) 
+TSF - Source(selectBox) , Time Period(Text) , TSF(color)(Solid,1.5px)
+ULT Osc - First Period(Text) ,Second Period(Text) ,Third Period(Text) ,Overbought(Text) , Oversold(Text),ULT Osc(color)(Solid,1.5px),Overbought (color)(Solid,1.5px),Oversold (color)(Solid,1.5px),Fill (color)(Text),
+VAR - Source(selectBox) , Time Period(Text) , VAR(color)(Solid,1.5px)
+VMA - Time Period(Text) ,  MA Type(SelectBox), VMA(color)(Solid,1.5px)
+VROC - TIME Period(Text)  , Horiz Line(Text) , VROC(color)(Solid,1.5px), Horiz Line(color)(Solid,1.5px)    
+VWMA - Source(selectBox) , Time Period(Text) , VWMA(color)(Solid,1.5px)
+WAD - MA Period(Text) , MA Type(SelectBox), WAD(color)(Solid,1.5px),  MA(color)(Solid,1.5px) 
+WCP - WCP(color)(Solid,1.5px)
+WILL %R - Time Period(Text) ,Overbought(Text) , Oversold(Text),WILL %R(color)(Solid,1.5px),Overbought (color)(Solid,1.5px),Oversold (color)(Solid,1.5px),Fill (color)(Text),
+WMA - Source(selectBox) , Time Period(Text) , WMA(color)(Solid,1.5px)

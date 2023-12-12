@@ -1,0 +1,2613 @@
+import React,{useRef,useState,useEffect} from 'react';
+import { Modal, Button, } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import './navbarcomp.css';
+//import Modal from 'react-modal';
+import{List,XCircle,ArrowRightSquareFill,Whatsapp,Telegram,Skype,MicrosoftTeams, } from 'react-bootstrap-icons';
+
+export default function Navbar({ onDarkModeToggle }){
+  const unicodeIcon = '\uF829';
+
+  const ExchangeOptions = [
+    {
+      name: 'NASDAQ', options: ['Watch List','Post Market','Pre Market','Momentum Stocks','High Volume Stocks','Volatile Stocks','Overbought Stocks','Oversold Stocks','Breakout Stocks','Float Stocks','Stocks Alert','Profits Alerts Scenario',
+  'Moving Average Screeners','EMA Crossover Screener','MACD Crossover Screener','VWAP Screener','RSI Screener','Bollinger Bands Screener','Stochastic Screener','NASDAQ Top Gainers','NYSE Top Gainers','OTCBB/PinkSheet Top Gainers','Toronto Top Gainers','ASX Top Gainers',],
+    },
+    {
+    name: 'NYSE', options: ['Large Cap Stocks','Small Cap Stocks','Dividend-Paying Stocks','Blue Chip Stocks','Tech Stocks','Financial Stocks','Healthcare Stocks','Energy Stocks','Consumer Discretionary Stocks',
+  'Consumer Staples Stocks','Industrial Stocks','Utilities Stocks','Real Estate Stocks','Transportation Stocks','Telecommunication Stocks','Cyclical Stocks','Defensive Stocks','Growth Stocks','Value Stocks','Income Stocks','Tech Giants','Automotive Stocks','Retail Stocks','Entertainment Stocks',],
+  },
+    {
+    name: 'OTCBB', options: ['OTCBB Top Gainers','OTCBB Top Losers',
+  'OTCBB Penny Stocks','OTCBB High Volume','OTCBB Most Active','OTCBB Unusual Volume','OTCBB Breakout Stocks','OTCBB Low Float','OTCBB Stocks Alert','OTCBB Profits Alerts Scenario','OTCBB Moving Average Screeners','OTCBB EMA Crossover Screener','OTCBB MACD Crossover Screener',
+  'OTCBB VWAP Screener','OTCBB RSI Screener','OTCBB Bollinger Bands Screener','OTCBB Stochastic Screener','OTCBB Trend Analysis','OTCBB Sector Performance','OTCBB Analyst Ratings','OTCBB News and Updates',],
+  },
+    {
+    name: 'ASX', options: ['ASX Top Gainers','ASX Top Losers','ASX Blue Chip Stocks','ASX Small Cap Stocks','ASX Dividend Stocks','ASX Technology Stocks','ASX Healthcare Stocks','ASX Mining Stocks','ASX Energy Stocks',
+  'ASX Financial Stocks','ASX Retail Stocks','ASX Biotech Stocks','ASX Renewable Energy Stocks','ASX IPO Stocks','ASX Penny Stocks','ASX Growth Stocks','ASX Value Stocks','ASX Defensive Stocks','ASX High Dividend Yield Stocks','ASX Sustainable Stocks','ASX ESG Stocks',],
+  },
+    {
+    name: 'TORONTO', options: [
+  'Watch List','Post Market','Pre Market','Momentum Stocks','High Volume Stocks','Volatile Stocks','Overbought Stocks','Oversold Stocks','Breakout Stocks','Float Stocks','Stocks Alert','Profits Alerts Scenario','Moving Average Screeners','EMA Crossover Screener','MACD Crossover Screener','VWAP Screener','RSI Screener',
+  'Bollinger Bands Screener','Stochastic Screener','Toronto Top Gainers','Toronto Option 1','Toronto Option 2','Toronto Option 3', ],
+  },
+
+  ];
+  const WidgetsOptions = ['Watch List','Post Market','Pre Market','Momentum Stocks','High Volume Stocks','Volatile Stocks','Overbought Stocks','Oversold Stocks','Breakout Stocks','Float Stocks','Stocks Alert','Profits Alerts Scnerio','Moving Average Screeners','EMA Crossover Screener','MACD Crossover Screener','VWAP Screener','RSI Screener','Bollinger Bands Screener','Stochastic Screener','NASDAQ Top Gainers','NYSE Top Gainers','OTCB/PinkSheet Top Gainers','Toronto Top Gainers','ASX Top Gainers',
+  ];
+  const StockOptions = ['Watch List','Post Market','Pre Market','Momentum Stocks','High Volume Stocks','Volatile Stocks','Overbought Stocks','Oversold Stocks','Breakout Stocks','Float Stocks','Stocks Alert','Profits Alerts Scnerio','Moving Average Screeners','EMA Crossover Screener','MACD Crossover Screener','VWAP Screener','RSI Screener','Bollinger Bands Screener','Stochastic Screener','NASDAQ Top Gainers','NYSE Top Gainers','OTCB/PinkSheet Top Gainers','Toronto Top Gainers','ASX Top Gainers',
+  ];
+  const TimeOptions = ['1 Second','3 Second','5 Second','10 Second','15 Second','20 Second','30 Second','1 minute','3 minute','5 minute','10 minute','15 minute', '30 minute','1 hour','2 hours','3 hours','5 hours','1 day'
+  ,]
+  const IndicatorOptions = [
+  {id:1 , name:'ADX' , fullname:'Average Directional Movement Index'},{id:2, name:'ADXR' , fullname:'Average Directional Movement Index Rating'},{id:3 , name:'APO' , fullname:'Absolute Price Oscillator'},
+  {id:4 , name:'AROON' , fullname:'Aroon Indicator'},{id:5 , name:'AROON Osc' , fullname:'Aroon Oscillator'},{id:6 , name:'ATR' , fullname:'Average True Range'},{id:7 , name:'AVG Price' , fullname:'Average Price: (O + H + L + C) / 4'},
+  {id:8 , name:'AVO' , fullname:'Absolute Volume Oscillator'},{id:9 , name:'AWS Osc' , fullname:'Awesome Oscillator'},{id:10 , name:'BB' , fullname:'Bollinger Bands'},{id:11 , name:'BB %B' , fullname:'Bollinger Bands %B'},
+  {id:12 , name:'BB Width' , fullname:'Bollinger Bands Width'},{id:13 , name:'BOP' , fullname:'Balance Of Power'},{id:14 , name:'CCI' , fullname:'Commodity Channel Index'},{id:15 , name:'CHAIKIN A/D' , fullname:'Chaikin Accumulation/Distribution Line'},
+  {id:16 , name:'CHAIKIN MF' , fullname:'Chaikin Money Flow'},{id:17 , name:'CHAIKIN Osc' , fullname:'Chaikin Oscillator'},{id:18 , name:'CHAIKIN Vol' , fullname:'Chaikin Volatility'},{id:19 , name:'CMO' , fullname:'Chande Momentum Oscillator'},
+  {id:20 , name:'COPPOCK' , fullname:'Coppock Curve'},{id:21 , name:'DC' , fullname:'Donchian Channel'},{id:22 , name:'DC Width' , fullname:'Donchian Channel Width'},{id:23 , name:'DEMA' , fullname:'Double Exponential Moving Average'},
+  {id:24 , name:'DMI' , fullname:'Directional Movement Index'},{id:25 , name:'EFI' , fullname:'Elder Force Index'},{id:26 , name:'EMA' , fullname:'Exponential Moving Average'},{id:27 , name:'ER Bear' , fullname:'Elder Ray Bear Power'},
+  {id:28 , name:'ER Bull' , fullname:'Elder Ray Bull Power'},{id:29 , name:'HMA' , fullname:'Hull Moving Average'},{id:30 , name:'KAMA' , fullname:'Kaufman Adaptive Moving Average'},{id:31 , name:'KC' , fullname:'Keltner Channel'},
+  {id:32 , name:'LR Angle' , fullname:'Linear Regression Angle'},{id:33 , name:'LR Forecast' , fullname:'Linear Regression Forecast'},{id:34 , name:'LR Intercept' , fullname:'Linear Regression Intercept'},{id:35 , name:'LR Slope' , fullname:'Linear Regression Slope'},
+  {id:36 , name:'MA' , fullname:'Moving Average'},{id:37 , name:'MA Env' , fullname:'Moving Average Envelope'},{id:38 , name:'MACD' , fullname:'Moving Average Convergence/Divergence'},{id:39 , name:'MAMA' , fullname:'MESA Adaptive Moving Average'},
+  {id:40 , name:'MAX' , fullname:'Highest value over a specified period'},{id:41 , name:'MED Price' , fullname:'Median Price: (High + Low) / 2'},{id:42 , name:'MFI' , fullname:'Money Flow Index'},
+  {id:43 , name:'MID Point' , fullname:'(Max + Min) / 2, over period'},{id:44 , name:'MID Price' , fullname:'(Highest High + Lowest Low) / 2, over period'},{id:45 , name:'MIN' , fullname:'Lowest value over a specified period'},
+  {id:46 , name:'MOM' , fullname:'Momentum'},{id:47 , name:'NATR' , fullname:'Normalized Average True Range'},{id:48 , name:'NVI' , fullname:'Negative Volume Index'},{id:49 , name:'OBV' , fullname:'On Balance Volume'},
+  {id:50 , name:'PPO' , fullname:'Percentage Price Oscillator'},{id:51 , name:'PSAR' , fullname:'Parabolic SAR (Stop and Reverse)'},{id:52 , name:'PVI' , fullname:'Positive Volume Index'},{id:53 , name:'PVO' , fullname:'Percentage Volume Oscillator'},
+  {id:54 , name:'PVT' , fullname:'Price Volume Trend'},{id:55 , name:'QSTICK' , fullname:'Qstick Indicator'},{id:56 , name:'ROC' , fullname:'Rate Of Change: (price / prevPrice - 1) * 100'},{id:57 , name:'ROCP' , fullname:'Rate Of Change Percentage: (ROC / 100)'},
+  {id:58 , name:'ROCR' , fullname:'Rate Of Change Ratio: (price / prevPrice)'},{id:59 , name:'RSI' , fullname:'Relative Strength Index'},{id:60 , name:'SMA' , fullname:'Simple Moving Average'},{id:61 , name:'STD DEV' , fullname:'Standard Deviation'},
+  {id:62 , name:'STOCH' , fullname:'Stochastic'},{id:63 , name:'STOCHF' , fullname:'Stochastic Fast'},{id:64 , name:'STOCH RSI' , fullname:'Stochastic Relative Strength Index'},{id:65 , name:'T3' , fullname:'T3 Moving Average'},
+  {id:66 , name:'TEMA' , fullname:'Triple Exponential Moving Average'},{id:67 , name:'TP' , fullname:'Typical Price'},{id:68 , name:'TR' , fullname:'True Range'},{id:69 , name:'TRIMA' , fullname:'Triangular Moving Average'},
+  {id:70 , name:'TRIX' , fullname:'1-day ROC of a Triple Smooth EMA'},{id:71 , name:'TSF' , fullname:'Time Series Forecast'},{id:72 , name:'ULT Osc' , fullname:'Ultimate Oscillator'},{id:73 , name:'VAR' , fullname:'Variance'},
+  {id:74 , name:'VMA' , fullname:'Volume Moving Average'},{id:75 , name:'VROC' , fullname:'Volume Rate Of Change: (V/ prevV - 1) * 100'},{id:76 , name:'VWMA' , fullname:'Volume Weighted Moving Average'},{id:77 , name:'WAD' , fullname:'Williams Accumulation/Distribution'},
+  {id:78 , name:'WCP' , fullname:'Weighted Close Price: (H + L + C * 2) / 4'},{id:79 , name:'WILL %R' , fullname:'Williams %R'},{id:80, name:'WMA' , fullname:'Weighted Moving Average'},
+  ];
+  const HelpOptions =['Filters','Exchanges','Widgets','Times','Display','Indicators','Draw','Panning','Zooming','Resizing','Alerts','Strategeis','Backtesting','Paper Trading','Journal','Group Talk'
+                     ];
+  const DrawOptions = [
+  ['Edit Selected Drawing','Clear Selected Drawing','Clear All Drawings'],
+  ['Line','Ray','Segment','Horizontal Line','Vertical Line',"Andrew's Pitchfork",'Channel','Extended Channel','Cyclic Lines'],
+  ['Fibonacci Time Zones','Fibonacci Retracement','Fibonacci Extension','Fibonacci Fan','Fibonacci Circles','Fibonacci Ellipses', 'Gann Fan'],
+  ['Circle','Ellipse','Rectangle','Triangle']
+  ];
+
+  const customStyles = {
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)', 
+      zIndex: 1000, 
+    },
+    content: {
+    },
+  };
+  const navbarRef = useRef(null);
+  const navbarOptionsContainerRef = useRef(null);
+  const [showOptions, setShowOptions] = useState(true);
+
+  // useEffect(() => {
+  //   const handleOutsideClick = (event) => {
+  //     if (navbarOptionsContainerRef.current && !navbarOptionsContainerRef.current.contains(event.target)) {
+  //       setShowOptions(false);
+  //     }
+  //   };
+  //   document.addEventListener('click', handleOutsideClick);
+  //   return () => {
+  //     document.removeEventListener('click', handleOutsideClick);
+  //   };
+  // }, []);
+
+
+  const subOptionsUlElement = document.querySelector('.navbar-section-main-exchanges-Suboptions-ul');
+
+  const [Exchange,setExchange] = useState('');
+  const [Crosshair, setCrosshair] = useState(false);
+  const [GridLines, setGridLines] = useState(false);
+  const [LastPrice, setLastPrice] = useState(false);
+  const [LeftValue, setLeftValue] = useState(false);
+  const [Volume, setVolume] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);  //previous model
+  const [widgetsOpen, setwidgetsOpen] = useState(true);
+  const [exchangeOpen, setexchangeOpen] = useState(true);
+  const [exchangeSubOptionOpen, setexchangeSubOptionOpen] = useState(true);
+  const [timesOpen, settimesOpen] = useState(true);
+  const [displayOpen, setdisplayOpen] = useState(true);
+  const [IndicatorsOpen, setIndicatorsOpen] = useState(true);
+  const [drawOpen, setdrawOpen] = useState(true);
+  const [helpOpen, sethelpOpen] = useState(true);
+
+  const [filterOpen, setfilterOpen] = useState(true);
+  const [alertOpen, setalertOpen] = useState(true);
+  const [StraregeisOpen, setStraregeisOpen] = useState(true);
+  const [backtestingOpen, setbacktestingOpen] = useState(true);
+  const [paperTradingOpen, setpaperTradingOpen] = useState(true);
+  const [journalOpen, setjournalOpen] = useState(true);
+  const [groupTalkOpen, setgroupTalkOpen] = useState(true);
+  const [contactOpen, setcontactOpen] = useState(true);
+
+
+  const [darkModetext, setdarkText] = useState('Dark Theme');
+  const [darkMode, setdarkMode] = useState(true);
+  const [IndicatorId, setIndicatorId] = useState(true);
+  const [IndicatorName, setIndicatorName] = useState(true);
+   const [numberValue, setNumberValue] = useState(14);
+  const [horizValue, sethorizValue] = useState(50);
+   const [responsiveNavbar, setresponsiveNavbar] = useState(false);
+
+  const handleCrosshair = () => {
+      setCrosshair(!Crosshair);
+  };
+  const handleGridLines = () => {
+      setGridLines(!GridLines);
+  };
+  const handleLastPrice = () => {
+      setLastPrice(!LastPrice);
+  };
+  const handleLeftValue = () => {
+      setLeftValue(!LeftValue);
+  };
+  const handleVolume = () => {
+      setVolume(!Volume);
+  };
+  const [show, setShow] = useState(false);
+  const[selectedIndicatorName,SetselectedIndicator]= useState('APO');
+  const handleShow = (e) => {
+    setShow(true);
+
+    const itemId = e.target.getAttribute('id');
+    setIndicatorId(itemId);
+
+    const clickedIndicatorId = parseInt(e.target.id, 10); 
+    var selectedIndicator = IndicatorOptions.find(data => data.id === clickedIndicatorId);
+
+    if (selectedIndicator) {
+      setIndicatorName(selectedIndicator.name);
+      SetselectedIndicator(selectedIndicator.name);
+      //console.log('ABCD',selectedIndicator.name);
+    } else {
+      console.log('Indicator not found');
+    }
+
+
+  };
+  console.log('ABCD',selectedIndicatorName);
+  const handleClose = () => setShow(false);
+
+  const getModalStyles = (darkMode) => {
+    // console.log(darkMode);
+    const modalStyles = {
+      modal: {
+        backgroundColor: darkMode ? 'none' : 'none', 
+        color: darkMode ? 'white' : 'black',
+        margin: '8vh 0',
+      },
+      header: {
+        backgroundColor: darkMode ? 'white' : '#212529',
+        color:darkMode ?  'black':'white',
+      },
+      body: {
+        backgroundColor: darkMode ? 'white' : '#212529',
+        color:darkMode ?  'black':'white',
+      },
+      footer: {
+        backgroundColor: darkMode ? 'white' : '#212529',
+        color:darkMode ?  'black':'white',
+      },
+    };
+
+    return modalStyles;
+  };
+ function handleWidgets(){
+   setwidgetsOpen(!widgetsOpen);
+setexchangeOpen(true); settimesOpen(true); setdisplayOpen(true); setIndicatorsOpen(true); setdrawOpen(true); sethelpOpen(true); setfilterOpen(true); setalertOpen(true); setStraregeisOpen(true); setbacktestingOpen(true); setpaperTradingOpen(true); setjournalOpen(true); setgroupTalkOpen(true); setcontactOpen(true);
+
+ }
+  function handleExchanges(event){
+    setexchangeOpen(!exchangeOpen);
+setwidgetsOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+    if (subOptionsUlElement && subOptionsUlElement.style.display !== 'none') {
+      subOptionsUlElement.style.display = 'none';
+    }
+  }
+  function handleExchangeSubOption(event){
+    setexchangeSubOptionOpen(!exchangeSubOptionOpen); setwidgetsOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);
+  }
+  function HandleSuboptionUl(e){
+    }
+  function HandleSuboptionLi(){
+    setexchangeOpen(true);
+  }
+  function handleTimes(){
+    settimesOpen(!timesOpen);
+setwidgetsOpen(true);setexchangeOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+    //SetresponsiveNavbarUl(!responsiveNavbarUl);
+  }
+  function handleDisplay(){
+    setdisplayOpen(!displayOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+  }
+  function handleIndicators(){
+    setIndicatorsOpen(!IndicatorsOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+  }
+  function handleDraw(){
+    setdrawOpen(!drawOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+  }
+  function handleHelp(){
+    // console.log('clicked')
+    sethelpOpen(!helpOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setdrawOpen(true);setIndicatorsOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+
+  }
+  function handlefilter(){
+    setfilterOpen(!filterOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+  }
+  function handleAlert(){
+    setalertOpen(!alertOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+  }
+  function handleStraregeis(){
+    setStraregeisOpen(!StraregeisOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+  }
+  function handleBacktesting(){
+    setbacktestingOpen(!backtestingOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+  }
+   function handlePaperTrading(){
+     setpaperTradingOpen(!paperTradingOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+   }
+  function handlejournal(){
+    setjournalOpen(!journalOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setgroupTalkOpen(true);setcontactOpen(true);
+  }
+  function handlegroupTalk(){
+    setgroupTalkOpen(!groupTalkOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setcontactOpen(true);
+  }
+  function handlecontact(){
+    setcontactOpen(!contactOpen);
+setwidgetsOpen(true);setexchangeOpen(true);settimesOpen(true);setdisplayOpen(true);setIndicatorsOpen(true);setdrawOpen(true);sethelpOpen(true);setfilterOpen(true);setalertOpen(true);setStraregeisOpen(true);setbacktestingOpen(true);setpaperTradingOpen(true);setjournalOpen(true);setgroupTalkOpen(true);
+  }
+  const toggleDarkMode = () => {
+    setdarkMode(!darkMode);
+     onDarkModeToggle();
+     if(darkModetext === 'Light Theme'){
+       setdarkText('Dark Theme');
+     }else{
+       setdarkText('Light Theme');
+     }
+   }; 
+  const handleTimeInputChange = (e) => {
+    setNumberValue(e.target.value);
+  };
+  const increaseTimeValue = () => {
+    setNumberValue((prevValue) => prevValue + 1);
+  };
+  const decreaseTimeValue = () => {
+    setNumberValue((prevValue) => Math.max(0, prevValue - 1));
+  };
+
+  const handlehorizInputChange = (e) => {
+      sethorizValue(e.target.value);
+  };
+  const increasehorizValue = () => {
+      sethorizValue((prevValue) => prevValue + 1);
+  };
+  const decreasehorizValue = () => {
+      sethorizValue((prevValue) => Math.max(0, prevValue - 1));
+  };
+
+  function testexcclick(e){
+    e.stopPropagation();
+  }
+
+
+  // useEffect(() => {
+  //   // Add event listener to document only when device width is less than 800px
+  //   const handleDocumentClick = (e) => {
+  //     if (navbarRef.current && !navbarRef.current.contains(e.target)) {
+  //       setIsNavbarVisible(false);
+  //     }
+  //   };
+  //   if (window.innerWidth < 700) {
+  //     document.addEventListener('click', handleDocumentClick);
+  //   }
+  //   return () => {
+  //     document.removeEventListener('click', handleDocumentClick);
+  //   };
+  // }, []); 
+
+  // const handleDocumentClick = (e) => {
+  //   // Check if the click is outside the navbar
+  //   if (navbarRef.current && !navbarRef.current.contains(e.target)) {
+  //     setIsNavbarVisible(false);
+  //   }
+  // };
+  var [responsiveNavbarUl,SetresponsiveNavbarUl]= useState(true);
+  function handleResponsiveNavbarUl(){
+    if (window.innerWidth < 700) {
+    const navbarElement = document.querySelector('.navbar-section-main-top-ul');
+    if (navbarElement) {
+       navbarElement.style.display = 'none';
+    }
+  }
+  }
+  // if (window.innerWidth < 700) {
+  //   const navbarElement = document.querySelector('.navbar-section-main-top-ul');
+  //   if (navbarElement) {
+  //     // navbarElement.style.display = responsiveNavbarUl ?'none': 'block';
+  //   }
+  // }
+  // console.log(responsiveNavbarUl);
+///////////////////////////////////////////////////////////////////////////
+  // Indicator's suboptions logic Starts
+  const [formData, setFormData] = useState({
+    timePeriod: 10, // Add default values for demonstration
+    horizLine: 20,
+    VerticalLine: 20,
+    fastPeriod:26,
+    slowPeriod:28,
+    upperBB:20,
+    daviations:24,
+    Overbought:20,
+    Oversold:9,
+    maperiod:10,
+    maType:18,
+    rocperiod:12,
+    shortroc:12,
+    longroc:15,
+    wmaPeriod:9,
+    maPeriod:9,
+    percent:10,
+    fastPeriod:26,
+    firstPeriod:21,
+    secondKPeriod:22,
+    thirdKPeriod:23,
+    thirdPeriod:11,
+    deciations:26,
+    slowPeriod:28,
+    signalPeriod:9,
+    fastMa:26,
+    fastKPeriod:22,
+    slowKPeriod:21,
+    slowDPeriod:12,
+    fastK:26,
+    fastD:1,
+    volFactor:10,
+    adx: '#ffffff',
+    horizLineColor: {
+      color: '#ff0000',
+      additionalColor: '#00ff00',
+      additionalText: 'SampleText',
+    },
+  });
+  const handleIncrement = (name) => {
+    setFormData({ ...formData, [name]: formData[name] + 1 });
+  };
+
+  const handleDecrement = (name) => {
+    setFormData({ ...formData, [name]: formData[name] - 1 });
+  };
+
+  const indicatorConfig = {
+      ADX: {
+      timePeriod: { label: 'Time Period', type: 'text' },
+      horizLine: { label: 'Horiz Line', type: 'text' },
+      adx: { label: 'ADX', type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+           },
+      horizLineColor: {
+        label: 'Horiz Line',
+        type: 'color',
+          selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+        selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+      },
+    },
+    ADXR: {
+      timePeriod: { label: 'Time Period', type: 'text' },
+      horizLine: { label: 'Horiz Line', type: 'text' },
+      adxr: { label: 'ADX', type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+           },
+      horizLineColor: {
+        label: 'Horiz Line',
+        type: 'color',
+          selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+        selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+      },
+    },
+    APO: {
+      source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+      fastPeriod: { label: 'Fast Period', type: 'text' },
+      slowPeriod: { label: 'Slow Period', type: 'text' },
+      maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+      horizLine: { label: 'Horiz Line', type: 'text' },
+      apo: { label: 'APO', type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+           },
+      horizLineColor: {
+        label: 'Horiz Line',
+        type: 'color',
+          selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+        selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+      },
+    },
+    AROON:{
+    timePeriod: { label: 'Time Period', type: 'text' },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    aroonDown: { label: 'Aroon Down', type: 'color',
+                  selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+                selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+               },
+          aroonUp: {
+            label: 'Aroon Up',
+            type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+
+          horizLineColor: {
+            label: 'Horiz Line',
+            type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          }
+    },
+    'AROON Osc' :{
+    timePeriod: { label: 'Time Period', type: 'text' },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    aroonOsc: {
+            label: 'Aroon OSC',
+            type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+
+          horizLineColor: {
+            label: 'Horiz Line',
+            type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          }
+    },
+    ATR : {
+    timePeriod: { label: 'Time Period', type: 'text' },
+    atr: {
+            label: 'ATR',
+            type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          }
+    },
+    'AVG Price' : {
+    avgPrice: {
+            label: 'AVG Price',
+            type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          }
+    },
+    AVO : {
+    fastPeriod: { label: 'Fast Period', type: 'text' },
+    slowPeriod: { label: 'Slow Period', type: 'text' },
+    maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    avo: {
+            label: 'AVO',
+            type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+
+          horizLineColor: {
+            label: 'Horiz Line',
+            type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          }
+    },
+    'AWS Osc': {
+      fastPeriod: { label: 'Fast Period', type: 'text' },
+      slowPeriod: { label: 'Slow Period', type: 'text' },
+      maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA', 'KAMA', 'MAMA', 'HAMA', 'T3'] },
+      horizLine: { label: 'Horiz Line', type: 'text' },
+      awsOsc: {
+        label: 'AWS OSC 1',
+        type: 'color', // Change 'text' to 'color'
+        color: { label: 'color', type: 'text' },
+        // selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+      },
+      awsOscfirst: {
+        label: 'AWS OSC 2',
+        type: 'color',
+        color: { label: 'color', type: 'color' },
+      },
+      awsOsclast: {
+        label: 'AWS OSC 3',
+        type: 'color',
+        color: { label: 'color', type: 'color' },
+      },
+    },
+    BB: {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+        timePeriod: { label: 'Time Period', type: 'text' },
+        slowPeriod: { label: 'Deviations', type: 'text' },
+        maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+        upperBB: { label: 'Upper BB', type: 'text' },
+        middleBB: {
+          label: 'Middle BB',
+          type: 'color',
+            selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+          selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+        },
+         lowerBB: {
+          label: 'Lower BB',
+          type: 'color',
+            selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+          selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+        },
+         fill: {
+          label: 'Fill',
+          type: 'color',
+            selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+          selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+        }
+    },
+    'BB %B' : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+        deviations: { label: 'Deviations', type: 'text' },
+        maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+        upperBB: { label: 'Deviations', type: 'text' },
+        Overbought: { label: 'Overbought', type: 'text' },
+        Oversold: { label: 'Oversold', type: 'text' },
+       lowerBB: {
+          label: 'BB %B',type: 'color',
+            selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+          selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+        },
+        OverBought: {
+          label: 'Overbought',type: 'color',
+            selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+          selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+        },
+        OverSold: {
+          label: 'Oversold',type: 'color',
+            selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+          selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+        },
+        fill: {
+          label: 'Fill',type: 'color',
+            selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+          selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+        },
+    },
+    'BB Width':{
+      source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+     timePeriod: { label: 'Time Period', type: 'text' },
+          deviations: { label: 'Deviations', type: 'text' },
+          maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+        fill: {
+            label: 'BB Width',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+      },
+    BOP :{
+      horizLine: { label: 'Horiz Line', type: 'text' },
+    bop: {
+            label: 'BOP',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+      horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+      },
+    CCI:{
+      timePeriod: { label: 'Time Period', type: 'text' },
+          Overbought: { label: 'Overbought', type: 'text' },
+             Oversold: { label: 'Oversold', type: 'text' },
+    cci: {
+            label: 'CCI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          OverBought: {
+            label: 'Overbought',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          OverSold: {
+            label: 'Oversold',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          fill: {
+            label: 'Fill',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+      },
+    'CHAIKIN A/D' : {
+    chaikin: {
+          label: 'CHAIKIN A/D',type: 'color',
+            selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+          selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+        },
+    },
+    'CHAIKIN MF' : {
+    timeperiod: { label: 'Time Period', type: 'text' },
+           horizline: { label: 'Horiz Line', type: 'text' },
+    chainkin: {
+            label: 'CHAIKIN MF',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          OverBought: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'CHAIKIN Osc':{
+    fastPeriod: { label: 'Fast Period', type: 'text' },
+    slowPeriod: { label: 'Slow Period', type: 'text' },
+           horizLine: { label: 'Horiz Line', type: 'text' },
+    chainkinosc: {
+            label: 'CHAIKIN Osc',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'CHAIKIN Vol':{
+    maperiod: { label: 'MA Period', type: 'text' },
+    maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+      rocperiod: { label: 'ROC Period', type: 'text' },
+    horizLine: { label: 'Horiz Period', type: 'text' },
+    chainkinvol: {
+            label: 'CHAIKIN Vol',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+     CMO : {
+     source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+      timePeriod: { label: 'Time Period', type: 'text' },
+      Overbought: { label: 'Overbought', type: 'text' },
+            Oversold: { label: 'Oversold', type: 'text' },
+     cmo: {
+             label: 'CMO',type: 'color',
+               selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+             selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+           },
+           OverBought: {
+             label: 'Overbought',type: 'color',
+               selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+             selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+           },
+           OverSold: {
+             label: 'Oversold',type: 'color',
+               selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+             selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+           },
+           fill: {
+             label: 'Fill',type: 'color',
+               selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+             selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+           },
+     },
+    COPPOCK :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+     wmaPeriod: { label: 'WMA Period', type: 'text' },
+     longroc: { label: 'Long Roc Period', type: 'text' },
+      shortroc: { label: 'Long Roc Period', type: 'text' },
+      horizLine: { label: 'Horiz Line', type: 'text' },
+       coppock: {
+            label: 'COPPOCK',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+              },
+       DC: {
+       timePeriod: { label: 'Time Period', type: 'text' },
+       upperdc: {
+               label: 'UPPER DC',type: 'color',
+                 selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+               selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+             },
+             middledc: {
+               label: 'MIDDLE DC',type: 'color',
+                 selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+               selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+             },
+             lowerdc: {
+               label: 'LOWER DC',type: 'color',
+                 selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+               selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+             },
+             fill: {
+               label: 'Fill',type: 'color',
+                 DC: { label: 'DC', type: 'text' },
+             },
+       },
+    'DC Width' : {
+    timePeriod: { label: 'Time Period', type: 'text' },
+    dcwidth: {
+            label: 'DC Width',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    DEMA : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+     timePeriod: { label: 'Time Period', type: 'text' },
+     dema: {
+            label: 'DEMA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    DMI :{
+    timePeriod: { label: 'Time Period', type: 'text' },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    diplus: {
+            label: '+DI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          diminus: {
+            label: '-DI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          adx: {
+            label: 'ADX',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    EFI : {
+    timePeriod: { label: 'Time Period', type: 'text' },
+    maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    horizLine: { label: 'Horiz Period', type: 'text' },
+    efi: {
+            label: 'EFI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    EMA :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    ema: {
+            label: 'EMA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'ER Bear' : {
+    timePeriod: { label: 'Time Period', type: 'text' },
+    maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    erbear: {
+            label: 'ER Bear',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz line',type: 'color',
+              colorBoxStyle: {label: 'Horiz line',type: 'color', },
+          },
+    },
+    'ER Bull' : {
+    timePeriod: { label: 'Time Period', type: 'text' },
+    maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    bull: {
+            label: 'ER Bull',type: 'color',
+              horizLine: { label: 'Time Period', type: 'text' },
+        },
+          },
+    HMA : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    hma: {
+            label: 'HMA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    KAMA : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    kama: {
+            label: 'KAMA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    KC :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'MA Period', type: 'text' },
+    maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    atrPeriod: { label: 'ATR Period', type: 'text' },
+    multiplier: { label: 'ATR Multiplier', type: 'text' },
+    upper: {
+            label: 'Upper KC',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          lower: {
+            label: 'Lower KC',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          basis: {
+            label: 'Basis KC',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          fill: {
+            label: 'FILL',type: 'color',
+      color:{ label: 'ATR Multiplier', type: 'text' }
+               },
+          },
+    'LR Angle' : {
+      source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    lr: {
+            label: 'LR',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+      },
+    'LR Forecast' :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    lr: {
+            label: 'LR Forecast',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'LR Intercept' :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    lr: {
+            label: 'LR Intercept',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'LR Slope' : {
+      source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    lr: {
+            label: 'LR',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+      },
+    MA :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    lr: {
+            label: 'LR',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'MA Env' :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    percent: { label: 'Percent', type: 'text' },
+    maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    upper: {
+            label: 'Upper MA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          lower: {
+            label: 'Lower MA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          basis: {
+            label: 'Basis MA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          fill: {
+            label: 'FILL',type: 'color',
+      color:{ label: 'ATR Multiplier', type: 'text' }
+               },
+          },
+    MACD : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    fastPeriod: { label: 'Fast Period', type: 'text' },
+    slowPeriod: { label: 'Slow Period', type: 'text' },
+    signalPeriod: { label: 'Signal Period', type: 'text' },
+    fastMA: { label: 'Fast MA', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    slowMA: { label: 'Slow MA', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    signalMA: { label: 'Signal MA', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    macd: {
+            label: 'MACD',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          signal: {
+            label: 'signal',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          hist: {
+            label: 'MACD',type: 'color',
+              hist: { label: 'hist', type: 'text' },
+          },
+          hist: {
+            label: 'MACD',type: 'color',
+              hist: { label: 'hist', type: 'color' },
+          },
+    },
+    MAMA:{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    fastPeriod: { label: 'Fast Limit', type: 'text' },
+    slowPeriod: { label: 'Slow Limit', type: 'text' },
+    mama: {
+            label: 'MAMA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          fama: {
+            label: 'FAMA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    MAX:{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    fastPeriod: { label: 'Fast Limit', type: 'text' },
+    max: {
+            label: 'MAX',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'MED Price':{
+    medPrice: {
+            label: 'MED Price',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    MFI :{
+    timePeriod: { label: 'Time Period', type: 'text' },
+     Overbought: { label: 'Overbought', type: 'text' },
+           Oversold: { label: 'Oversold', type: 'text' },
+    mfi: {
+            label: 'MFI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          OverBought: {
+            label: 'Overbought',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          OverSold: {
+            label: 'Oversold',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          fill: {
+            label: 'Fill',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'MID Point' : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    midPoint: {
+            label: 'MID Point',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'MID Price' : {
+    timePeriod: { label: 'Time Period', type: 'text' },
+    midPrice: {
+            label: 'MID Price',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    MIN : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    min: {
+            label: 'MIN',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    MOM : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    mom: {
+            label: 'MOM',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    NATR :{
+    timePeriod: { label: 'Time Period', type: 'text' },
+    natr: {
+            label: 'NATR',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    NVI :{
+    maPeriod: { label: 'MA Period', type: 'text' },
+    maType: { label: 'MA Type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    nvi: {
+            label: 'NVI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          ma: {
+            label: 'MA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    OBV: {
+     obv: {
+            label: 'OBV',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    ROCR:{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    rocr: {
+            label: 'ROCR',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    PPO :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    fastPeriod: { label: 'Fast Period', type: 'text' },
+    slowPeriod: { label: 'Slow Period', type: 'text' },
+    matype: { label: 'MA Type', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    ppo: {
+            label: 'PPO',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    PSAR :{
+    fastPeriod: { label: 'Acceleration Fector', type: 'text' },
+    slowPeriod: { label: 'AF Maximum', type: 'text' },
+    psar: {
+            label: 'PSAR',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    PVI : {
+    maPeriod: { label: 'MA Period', type: 'text' },
+    matype: { label: 'MA Type', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+    pvi: {
+            label: 'PVI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+        ma: {
+            label: 'MA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    PVO : {
+    fastPeriod: { label: 'Fast Period', type: 'text' },
+    slowPeriod: { label: 'Slow Period', type: 'text' },
+    matype: { label: 'MA Type', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    pvo: {
+            label: 'PVO',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+        horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    PVT : {
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    pvt: {
+            label: 'PVT',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+        horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    QSTICK : {
+    timePeriod: { label: 'Time Period', type: 'text' },
+    matype: { label: 'MA Type', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    qstick: {
+            label: 'QSTICK',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+        horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    ROC :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    roc: {
+            label: 'ROC',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    ROCP :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    horizLine: { label: 'Horiz Line', type: 'text' },
+    rocp: {
+            label: 'ROCP',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    RSI :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+     Overbought: { label: 'Overbought', type: 'text' },
+           Oversold: { label: 'Oversold', type: 'text' },
+    rsi: {
+            label: 'RSI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          OverBought: {
+            label: 'Overbought',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          OverSold: {
+            label: 'Oversold',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+          fill: {
+            label: 'Fill',type: 'color',
+      horizLine: { label: 'Horiz Line', type: 'text' },
+               },
+          },
+    SMA :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    sma: {
+            label: 'SMA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'STD DEV' : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    daviations: { label: 'Deviations', type: 'text' },
+
+    stdDev: {
+            label: 'STD DEV',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    STOCH:{
+    fastKPeriod: { label: 'Fast-K Period', type: 'text' },
+    slowKPeriod: { label: 'Slow-K Period', type: 'text' },
+    slowDPeriod: { label: 'Slow-D Period', type: 'text' },
+    slowK: { label: 'Slow-K MA', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    slowD: { label: 'Slow-K MA', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    Overbought: { label: 'Overbought', type: 'text' },
+           Oversold: { label: 'Oversold', type: 'text' },
+    slowK: {
+            label: 'SlowK',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+       slowD: {
+            label: 'slowD',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+       OverBought: {
+            label: 'Overbought',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+       OverSold: {
+            label: 'Oversold',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+        fill: {
+            label: 'Fill',type: 'color',
+      horizLine: { label: 'Horiz Line', type: 'text' },
+               },
+    },
+    STOCHF:{
+    fastKPeriod: { label: 'Fast-K Period', type: 'text' },
+    slowKPeriod: { label: 'Slow-K Period', type: 'text' },
+    fastD: { label: 'Fast-D MA', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    Overbought: { label: 'Overbought', type: 'text' },
+     fastK: { label: 'FastK', type: 'text' },
+     fastD: { label: 'FastD', type: 'text' },
+       OverBought: {
+            label: 'Overbought',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+       Oversold: {
+            label: 'Oversold',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+        fill: {
+            label: 'Fill',type: 'color',
+      horizLine: { label: 'Horiz Line', type: 'text' },
+               },
+    },
+    'STOCH RSI': {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    fastKPeriod: { label: 'Fast-K Period', type: 'text' },
+    fastDPeriod: { label: 'Fast-D Period', type: 'text' },
+    fastD: { label: 'Fast-D MA', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+    OverBought: { label: 'Overbought', type: 'text' },
+     OverSold: { label: 'Oversold', type: 'text' },
+     fastK: {
+            label: 'FastK RSI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+       fastD: {
+            label: 'FastD RSI',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+       Overbought: {
+            label: 'Overbought',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+       Oversold: {
+            label: 'Oversold',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+        fill: {
+            label: 'Fill',type: 'color',
+      horizLine: { label: 'Horiz Line', type: 'text' },
+               },
+    },
+    T3 : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    volFactor: { label: 'Volume Factor', type: 'text' },
+    t3: {
+            label: 'T3',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    TEMA : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    tema: {
+            label: 'TEMA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    TP:{
+    tp:{
+            label: 'TP',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    TR:{
+    tr:{
+            label: 'TR',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    TRIMA:{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    trima: {
+            label: 'TRIMA',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    TRIX :{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+      horizLine: { label: 'Horiz Line', type: 'text' },
+    trix: {
+            label: 'TRIX',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+      horizline: {
+            label: 'Horiz Line',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    TSF : {
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    tsf: {
+            label: 'TSF',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+    },
+    'ULT Osc':{
+    firstPeriod: { label: 'First Period', type: 'text' },
+    secondKPeriod: { label: 'Second Period', type: 'text' },
+    thirdKPeriod: { label: 'Third Period', type: 'text' },
+    Overbought: { label: 'Overbought', type: 'text' },
+     Oversold: { label: 'Oversold', type: 'text' },
+       ult: {
+            label: 'ULT Osc',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+       OverBought: {
+            label: 'Overbought',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+       OverSold: {
+            label: 'Oversold',type: 'color',
+              selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+            selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+          },
+        fill: {
+            label: 'Fill',type: 'color',
+      horizLine: { label: 'Horiz Line', type: 'text' },
+               },
+    },
+      VAR:{
+    source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+    timePeriod: { label: 'Time Period', type: 'text' },
+    edc:{
+      label: 'VAR',type: 'color',
+        selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+      selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+    }, },
+      VMA :{
+      timePeriod: { label: 'Time Period', type: 'text' },
+      maType: { label: 'MA type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+      vma: {
+              label: 'VMA',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+      },
+      VROC :{
+      timePeriod: { label: 'Time Period', type: 'text' },
+      horizLine: { label: 'Horiz Line', type: 'text' },
+      vroc: {
+              label: 'VROC',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+         HorizLine: {
+              label: 'Horiz Line',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+      },
+      VWMA:{
+      source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+      timePeriod: { label: 'Time Period', type: 'text' },
+      vwma: {
+              label: 'VWMA',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+      },
+      WAD:{
+      maPeriod: { label: 'MA Period', type: 'text' },
+      maType: { label: 'MA type', type: 'select', options: ['SMA', 'EMA', 'WMA', 'DEMA','TEMA','TRIMA','KAMA','MAMA','HAMA','T3'] },
+      wad: {
+              label: 'WAD',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+        ma: {
+              label: 'MA',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+      },
+      WCP :{
+      wcp: {
+              label: 'WCP',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+      },
+     'WILL %R':{
+      thirdPeriod: { label: 'Third Period', type: 'text' },
+      Overbought: { label: 'Overbought', type: 'text' },
+       Oversold: { label: 'Oversold', type: 'text' },
+         will: {
+              label: 'WILL %R',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+         OverBought: {
+              label: 'Overbought',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+         OverSold: {
+              label: 'Oversold',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+          fill: {
+              label: 'Fill',type: 'color',
+        horizLine: { label: 'Horiz Line', type: 'text' },
+                 },
+      },
+      WMA:{
+      source: { label: 'Source', type: 'select', options: ['Open', 'High','Low','Close'] },
+      timePeriod: { label: 'Time Period', type: 'text' },
+      wma: {
+              label: 'WMA',type: 'color',
+                selectBoxStyle: { label: 'Select Box', type: 'select', options: ['Solid','Dashed','Dotted', 'Dash-Dot','Hidden'] },
+              selectBoxWidth: { label: 'Select Box', type: 'select', options: ['1.0px', '1.5px','2.0px','2.5px','3.0px','3.5px','4.0px'] },
+            },
+      },
+  };
+
+
+  
+  const handleSubmit = () => {
+    console.log('Form Data:', formData);
+    handleClose();
+  };
+
+  
+  //const selectedIndicatorName = 'APX';
+  const handleInputChange = (name, value) => {
+    setFormData((prevFormData) => {
+      const newState = { ...prevFormData };
+      const nameArray = name.split('.');
+      const lastProp = nameArray.pop();
+
+      let currentProp = newState;
+      nameArray.forEach((prop) => {
+        // Initialize nested objects if they don't exist
+        currentProp[prop] = currentProp[prop] || {};
+        currentProp = currentProp[prop];
+      });
+
+      // Update the last property
+      currentProp[lastProp] = value;
+
+      console.log('New State:', newState); // Log the updated state for debugging
+
+      return { ...newState }; // Ensure a new object reference to trigger a re-render
+    });
+  };
+
+    const renderFormFields = () => {
+      const fields = indicatorConfig[selectedIndicatorName];
+
+    return (
+      <div>
+        {Object.entries(fields).map(([name, config]) => (
+          <div key={name}>
+            <label>{config.label}:</label>
+            {config.type === "text" && (
+              <>
+                <button onClick={() => handleDecrement(name)}>-</button>
+                <input
+                  type="text"
+                  value={formData[name] || ""}
+                  onChange={(e) => handleInputChange(name, e.target.value)}
+                  className="main-modal-navbar-section-input1"
+                />
+                <button onClick={() => handleIncrement(name)}>+</button>
+              </>
+            )}
+            {config.type === "color" && (
+              <>
+                <input
+                  type={config.type}
+                  value={formData[name] || ""}
+                  onChange={(e) => handleInputChange(name, e.target.value)}
+                />
+                {config.additionalColor && (
+                  <input
+                    type={config.additionalColor.type}
+                    value={formData[name][config.additionalColor.label] || ""}
+                    onChange={(e) =>
+                      handleInputChange(
+                        `${name}.${config.additionalColor.label}`,
+                        e.target.value
+                      )
+                    }
+                  />
+                )}
+                {config.additionalText && (
+                  <input
+                    type={config.additionalText.type}
+                    value={formData[name][config.additionalText.label] || ""}
+                    onChange={(e) =>
+                      handleInputChange(
+                        `${name}.${config.additionalText.label}`,
+                        e.target.value
+                      )
+                    }
+                  />
+                )}
+                {config.selectBoxStyle && (
+                  <select>
+                    {config.selectBoxStyle.options &&
+                      config.selectBoxStyle.options.length > 0 &&
+                      config.selectBoxStyle.options.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                  </select>
+                )}
+                {config.selectBoxWidth && (
+                  <select>
+                    {config.selectBoxWidth.options &&
+                      config.selectBoxWidth.options.length > 0 &&
+                      config.selectBoxWidth.options.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                  </select>
+                )}
+              </>
+            )}
+            {config.type === "select" && (
+              <select>
+                {config.options &&
+                  config.options.length > 0 &&
+                  config.options.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+              </select>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+
+
+
+  
+  // Indicator's suboptions logic Ends
+///////////////////////////////////////////////////////////////////////////
+  //console.log(selectedIndicator);
+
+  function HandleResponsiveNavbar(){
+    setresponsiveNavbar(!responsiveNavbar);
+    // setIsNavbarVisible((prev) => !prev); //to hide the navbar in mobile view
+    const navbarElement = document.querySelector('.navbar-section-main-top-ul');
+    if (navbarElement) {
+      navbarElement.style.display = responsiveNavbar ?'block': 'none';
+    }
+  }
+  //console.log(responsiveNavbar);
+  return(
+    <section className='navbar-section-main' >
+
+    <div className={darkMode ? 'navbar-section-main-top' : 'dark-mode'}>
+      <div className='navbar-section-main-top-hamburger'>
+      <List className='  navbar-section-main-top-hamburger-icon' onClick={HandleResponsiveNavbar}/>
+      </div>
+    <ul className='navbar-section-main-top-ul'>
+      <ArrowRightSquareFill className='navbar-section-main-top-ul-crossIcon' onClick={HandleResponsiveNavbar} />
+
+      {responsiveNavbar && (
+      <div ref={navbarRef}>Sagar</div> )}
+      <li className='navbar-section-main-top-ul-filter-li' onClick={handlefilter}>FILTERS</li>
+
+      <li className='navbar-section-main-top-ul-exchange-li' onClick={handleExchanges}>EXCHANGES
+          <div className={exchangeOpen ? 'navbar-section-main-exchanges-options' : 'navbar-section-main-exchanges-options-working'} >
+             <ul className='navbar-section-main-exchanges-options-ul exchange-suboptions' onClick={testexcclick}  >
+               {ExchangeOptions && ExchangeOptions.map((data)=>
+                 <li className='navbar-section-main-exchanges-options-li' key={data.id} onClick={() => {handleExchangeSubOption(event);setExchange(data.name);}}>{data.name}
+                   {
+                   data.name === Exchange &&(
+                       <div className={exchangeSubOptionOpen ? 'navbar-section-main-exchanges-Suboptions' : 'navbar-section-main-exchanges-Suboptions-Working'} data-value={Exchange} onClick={HandleSuboptionUl} >
+
+                          <ul className='navbar-section-main-exchanges-Suboptions-ul'  >
+                          {data.options && data.options.map((alldata)=>(
+                             <li key={alldata} onClick={() => { HandleSuboptionLi(); handleResponsiveNavbarUl(); }} >{alldata}</li>
+                           ))}
+                        </ul>
+                        </div>
+                     )
+                   }
+
+                 </li>)}
+             </ul>
+            </div>
+      </li>
+      <li className='navbar-section-main-top-ul-widgets-li' onClick={handleWidgets} >WIDGETS
+
+              <div className={widgetsOpen ?'navbar-section-main-widgets-options' : 'navbar-section-main-widgets-options-Working'} >
+              <ul className='navbar-section-main-widgets-options-ul' >
+               {WidgetsOptions && WidgetsOptions.map((data)=>(
+                <li key ={data} onClick={handleResponsiveNavbarUl}>{data}</li> 
+                 ))}
+                 </ul>
+               </div>
+      </li>
+      <li className='navbar-section-main-top-ul-times-li' onClick={handleTimes}>TIMES
+
+        <div className={timesOpen ? 'navbar-section-main-times-options' : 'navbar-section-main-times-options-Working'} >
+          <ul className='navbar-section-main-times-options-ul'>
+           {TimeOptions && TimeOptions.map((data)=>(
+            <li key ={data} onClick={handleResponsiveNavbarUl} >{data}</li> 
+             ))}
+             </ul>
+           </div>
+
+      </li>
+      <li className='navbar-section-main-top-ul-display-li' onClick={handleDisplay}>DISPLAY
+
+           <div className={displayOpen ? 'navbar-section-main-display-options' : 'navbar-section-main-display-options-Working'} >
+             <ul className='navbar-section-main-display-options-ul'>
+               <li onClick={handleResponsiveNavbarUl}>Bars</li>  <li onClick={handleResponsiveNavbarUl}>Colored Bars</li>  <li onClick={handleResponsiveNavbarUl} >Candles</li>  <li onClick={handleResponsiveNavbarUl}>Heikin Ashi</li>  <li onClick={handleResponsiveNavbarUl}>Line</li>  <li onClick={handleResponsiveNavbarUl} >Mountain</li> <hr />
+               <li onClick={toggleDarkMode}>{darkModetext}</li>  <hr />
+               <section>
+               <div className="form-check form-switch ">
+                 <label htmlFor="flexSwitchCrosshair" onClick={handleResponsiveNavbarUl}>Crosshair</label>
+                 <input  className="form-check-input navbar-section-main-display-options-input" type="checkbox" id="flexSwitchCrosshair" checked={Crosshair} onChange={handleCrosshair}/>
+               </div>
+
+                 <div className="form-check form-switch ">
+                    <label htmlFor="flexSwitchGridLines" onClick={handleResponsiveNavbarUl}>Grid Lines</label>
+                    <input  className="form-check-input navbar-section-main-display-options-input" type="checkbox" id="flexSwitchGridLines" checked={GridLines} onChange={handleGridLines}/>
+                  </div>
+
+                 <div className="form-check form-switch ">
+                    <label htmlFor="flexSwitchLastPrice" onClick={handleResponsiveNavbarUl}>Last Price</label>
+                    <input  className="form-check-input navbar-section-main-display-options-input" type="checkbox" id="flexSwitchLastPrice" checked={LastPrice} onChange={handleLastPrice}/>
+                  </div>
+
+                 <div className="form-check form-switch ">
+                    <label htmlFor="flexSwitchLeftValue" onClick={handleResponsiveNavbarUl}>Left Value</label>
+                    <input  className="form-check-input navbar-section-main-display-options-input" type="checkbox" id="flexSwitchLeftValue" checked={LeftValue} onChange={handleLeftValue}/>
+                  </div>
+
+                 <div className="form-check form-switch ">
+                    <label htmlFor="flexSwitchVolume" onClick={handleResponsiveNavbarUl} >Volume</label>
+                    <input  className="form-check-input navbar-section-main-display-options-input" type="checkbox" id="flexSwitchVolume" checked={Volume} onChange={handleVolume}/>
+                  </div>
+                 </section>
+              </ul>
+              </div>
+
+      </li>
+      <li className='navbar-section-main-top-ul-indicators-li' onClick={handleIndicators}>INDICATORS
+
+        <div className={IndicatorsOpen ? 'navbar-section-main-indicators-options' : 'navbar-section-main-indicators-options-Working'} >
+          <ul className='navbar-section-main-indicators-options-ul' >
+           {IndicatorOptions && IndicatorOptions.map((data)=>(
+            <li key ={data.id} id={data.id} onClick={ handleShow} >{data.name} &nbsp;&nbsp;&nbsp; {data.fullname}</li> 
+             ))}
+             </ul>
+           </div> 
+      </li>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        dialogClassName="custom-modal"
+        backdropClassName="modal-backdrop-transparent"
+        style={getModalStyles(darkMode).modal}
+      >
+        <div>
+          <div style={getModalStyles(darkMode).header}>
+            <Modal.Header closeButton className="modal-header">
+              <Modal.Title>
+                {`${IndicatorName}  `}
+                {/* {`${IndicatorName}  (${Object.entries(formData)
+                  .filter(([key, value]) => typeof value === 'number')
+                  .map(([key, value]) => `${value}`)
+                  .join('  ')})`} */}
+              </Modal.Title>
+            </Modal.Header>
+          </div>
+          <div style={getModalStyles(darkMode).body}>
+            <Modal.Body className="modal-body">{renderFormFields()}</Modal.Body>
+            </div>
+          <div style={getModalStyles(darkMode).footer}>
+          <Modal.Footer className="modal-footer">
+            <Button variant="secondary" onClick={handleSubmit}>
+              OK
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              cancel
+            </Button>
+          </Modal.Footer>
+            </div>
+        </div>
+      </Modal>
+
+
+      <li className='navbar-section-main-top-ul-draw-li' onClick={handleDraw}>DRAW
+            <div className={drawOpen ? 'navbar-section-main-draw-options' : 'navbar-section-main-draw-options-Working'}>
+            <ul className='navbar-section-main-draw-options-ul' onClick={handleResponsiveNavbarUl}>
+            {DrawOptions[0] && DrawOptions[0].map((data)=>(
+               <li>{data}</li>
+            ))}
+              <hr />
+              {DrawOptions[1] && DrawOptions[1].map((data)=>(
+                 <li>{data}</li>
+              ))}
+                <hr />
+              {DrawOptions[2] && DrawOptions[2].map((data)=>(
+                 <li>{data}</li>
+              ))}
+                <hr />
+              {DrawOptions[3] && DrawOptions[3].map((data)=>(
+                 <li>{data}</li>
+              ))}
+
+            </ul>
+            </div>
+
+      </li>
+      <li onClick={handleAlert} >ALERTS</li>
+      <li onClick={handleStraregeis} >STRATEGIES</li>
+      <li onClick={handleBacktesting}>BACKTESTING</li>
+      <li onClick={handlePaperTrading}>PAPER TRADING</li>
+      <li onClick={handlejournal}>JOURNAL</li>
+      <li onClick={handlegroupTalk}>GROUPS TALK
+      <div className={groupTalkOpen ? 'navbar-section-main-GroupTalk-options' :'navbar-section-main-GroupTalk-options-Working'}>
+      <ul className='navbar-section-main-GroupTalk-options-ul' onClick={handleResponsiveNavbarUl} >
+        <li ><Whatsapp style={{'height':'2rem', 'width':'auto', 'fill': '#075E54'}}/></li>
+        <li><Telegram style={{'height':'2rem','width':'auto','fill':'#0088cc'}}/></li>
+               <li><Skype style={{'height':'2rem','width':'auto','fill':'#00aff0'}}/></li>
+               <li><MicrosoftTeams style={{'height':'2rem','width':'auto','fill':'#7B83EB'}}/></li>
+         {/* <li>{unicodeIcon}</li> */}
+         {/* <li><Instagram style={{'height':'2rem','width':'auto','color':'pink'}}/></li> */}
+         {/* <li><Twitter style={{'height':'2rem','width':'auto','color':'blue'}}/></li> */}
+         {/* <li><Discord style={{'height':'2rem','width':'auto','color':'blue'}}/></li> */}
+         {/* <li><Snapchat style={{'height':'2rem','width':'auto','color':'yellow'}}/></li> */}
+         {/* <li><Threads style={{'height':'2rem','width':'auto','color':'blue'}}/></li> */}
+      </ul>
+      </div>
+      </li>
+      <li className='navbar-section-main-top-ul-help-li' onClick={handleHelp}>HELP
+        <div className={helpOpen ? 'navbar-section-main-help-options' : 'navbar-section-main-help-options-Working'} >
+          <ul className='navbar-section-main-help-options-ul'>
+           {HelpOptions && HelpOptions.map((data)=>(
+            <li key ={data} onClick={handleResponsiveNavbarUl} >{data}</li> 
+             ))}
+             </ul>
+           </div>
+      </li>
+      <li onClick={handlecontact}>CONTACT US</li>
+    </ul>
+    </div>
+    </section>
+  )
+}
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+:root{
+--primary-color: white;
+--secondary-color: #1e1e1e;
+--hover-color: lightgray;
+  --border-color: #1e1e1e;
+  --shadow-color:lightgray;
+}
+.dark-mode{
+  --primary-color: #1e1e1e;
+  --secondary-color: white;
+  --hover-color: lightgrey;
+  --border-color: white;
+}
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--hover-color); 
+  border-radius: 6px; 
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; 
+}
+.navbar-section-main{
+  
+}
+.navbar-section-main-top{
+}
+.navbar-section-main-top-hamburger-icon{
+  float:right;
+  height:2rem;
+  width:auto;
+  margin:1.5rem;
+  display:none;
+  position:absolute;
+  left:0%;
+}
+.navbar-section-main-top-ul-crossIcon{
+  display:none;
+}
+.navbar-section-main-top-ul{
+  text-decoration:none;
+  list-style-type:none;
+ display:flex; 
+  font-size:.73rem;
+ justify-content:space-around;
+  align-items:top;
+  border:1px solid var(--border-color);
+  box-shadow:0px 0px 1px var(--shadow-color);
+  padding:.5rem 0;
+  font-family: sans-serif;
+  background-color:var(--primary-color);
+  cursor:pointer;
+  margin:0;
+}
+.navbar-section-main-top-ul li{
+  padding:.9rem .5rem;
+  margin:0;
+  border-radius:5px;
+}
+.navbar-section-main-top-ul li:hover{
+  background-color:var(--hover-color);
+}
+.navbar-section-main-top li{ 
+  text-decoration:none;
+  list-style-type:none;
+}
+.navbar-section-main-exchanges-options{
+  display:none;
+  padding:2rem 0;
+  width:auto;
+}
+.navbar-section-main-exchanges-options ul{
+  border-radius:5px;
+  
+}
+.navbar-section-main-exchanges-options li{
+  padding:1rem 1rem 1rem 0;
+}
+.navbar-section-main-exchanges-Suboptions{
+  display:none;
+}
+.navbar-section-main-widgets-options{
+  display:none;
+  position:absolute;
+}
+.navbar-section-main-times-options{
+  display:none;
+}
+.navbar-section-main-display-options{
+  display:none;
+}
+.navbar-section-main-indicators-options{
+  display:none;
+}
+.navbar-section-main-draw-options{
+  display:none;
+}
+.navbar-section-main-help-options{
+  display:none;
+}
+.navbar-section-main-top-ul-filter-li{
+  
+}
+.navbar-section-main-top-ul-filter-li:hover {
+  display:block;
+  cursor:pointer;
+}
+.navbar-section-main-widgets-options-working{
+  display:block;
+}
+.navbar-section-main-exchanges-options{
+   position:relative;
+}
+.navbar-section-main-exchanges-options-ul{
+  cursor:pointer;
+  padding: 0;
+  position:absolute;
+  top:4rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px;
+  max-height: 100vh;
+  overflow:none;
+  text-align:center;
+  list-style-type:none;
+  
+}
+.navbar-section-main-exchanges-options-li{
+  width:auto;
+  padding:1rem ;
+ 
+}
+.navbar-section-main-exchanges-options-li:hover{
+  background-color: var(--hover-color);
+  border-radius:5px;
+}
+.navbar-section-main-exchanges-Suboptions-ul li:hover{
+  background-color: var(--hover-color);
+  border-radius:5px;
+}
+.navbar-section-main-exchanges-Suboptions li{
+  padding:1rem;
+  margin:0;
+}
+.navbar-section-main-exchanges-Suboptions-ul li{
+  padding:1rem;
+  margin:0;
+}
+.navbar-section-main-exchanges-Suboptions-ul{
+  cursor:pointer;
+  display:block;
+  position:absolute;
+  left:4.9rem;
+  max-height: 100vh;
+  overflow:auto;
+  width:12vw;
+  box-shadow:  0px 1px 4px var(--shadow-color);
+  padding:0;
+  margin:0 ;
+  /* border-radius:5px !important; */
+}
+.navbar-section-main-widgets-options-working{
+  display:block;
+}
+.navbar-section-main-widgets-options-ul{
+  cursor:pointer;
+  padding: 0;
+  position:absolute;
+  top:4rem;
+  box-shadow:  0px 1px 4px var(--shadow-color);
+  max-height: 90vh;
+  overflow:auto;
+  margin:0;
+  border:1px solid lightgray;
+}
+.navbar-section-main-widgets-options-ul li{
+  padding:.3rem .5rem ;
+  border-radius:5px;
+}
+.navbar-section-main-widgets-options-ul li:hover{
+  background-color:var(--hover-color);
+}
+.navbar-section-main-times-options-working{
+  display:block;
+}
+.navbar-section-main-times-options-ul{
+  padding:0;
+  cursor:pointer;
+  display:block;
+  position:absolute;
+  max-height: 90vh;
+  overflow:auto;
+  top:4rem;
+  left:18rem;
+  box-shadow:  0px 1px 4px var(--shadow-color);
+}
+.navbar-section-main-times-options-ul li{
+  padding:.5rem 1.5rem;
+  border-radius:5px;
+}
+.navbar-section-main-times-options-ul li:hover{
+  background-color: var(--hover-color);
+}
+
+.navbar-section-main-display-options-Working{
+  display:block;
+}
+.navbar-section-main-display-options-ul{
+  padding: 0 .5rem;
+  cursor:pointer;
+  display:block;
+  position:absolute;
+  max-height: 90vh;
+  overflow:auto;
+  top:3.9rem;
+  width:9rem;
+  text-align:center;
+  font-size:.85rem;
+  box-shadow:  0px 1px 4px var(--shadow-color);
+  border:1px solid lightgray;
+}
+.navbar-section-main-display-options-ul li{
+  padding:.4rem 1rem ;
+  border-radius:5px;
+}
+.navbar-section-main-display-options-ul li:hover{
+  background-color: var(--hover-color);
+}
+.navbar-section-main-display-options-ul label{
+  /* margin-right:.5rem; */
+}
+
+.navbar-section-main-display-options-input {
+  background-color: #fff !important; 
+  border: 2px solid #b2c4d7 !important; 
+}
+
+.navbar-section-main-display-options-input:checked {
+  background-color: #007bff !important; 
+  border: 1px solid #007bff !important; 
+}
+
+.navbar-section-main-display-options-input:active,
+.navbar-section-main-display-options-input:focus {
+  box-shadow: none !important; 
+}
+
+.navbar-section-main-indicators-options-Working{
+  display:block;
+}
+.navbar-section-main-indicators-options-ul-span{
+  margin-right: 1.5rem;
+  background-color:none !important;
+}
+.navbar-section-main-indicators-options-ul-span:hover{
+  /* background-color:currentcolor !important; */
+}
+.navbar-section-main-indicators-options-ul{
+  padding: 0;
+  cursor:pointer;
+  display:block;
+  position:absolute;
+  left:25rem;
+  max-height: 90vh;
+  overflow:auto;
+  top:4rem;
+  width:auto;
+  box-shadow:  0px 1px 4px var(--shadow-color);
+}
+.navbar-section-main-indicators-options-ul li{
+  display:flex;
+  justify-content:space-between;
+  padding:.5rem 1rem ;
+  border-radius:5px;
+}
+.navbar-section-main-indicators-options-ul li:hover{
+  background-color: var(--hover-color);
+}
+
+.navbar-section-main-draw-options-Working{
+  display:block;
+}
+.navbar-section-main-draw-options-ul{
+  padding: 0; 
+  cursor:pointer;
+  display:block;
+  position:absolute;
+  max-height: 90vh;
+  overflow:auto;
+  top:4rem;
+  box-shadow:  0px 1px 4px var(--shadow-color);
+}
+.navbar-section-main-draw-options-ul li{
+  padding:.1rem 1rem ;
+  border-radius:5px;
+}
+.navbar-section-main-draw-options-ul li:hover{
+  background-color: var(--hover-color);
+}
+
+.navbar-section-main-help-options-Working{
+  display:block;
+}
+.navbar-section-main-help-options-ul{
+  padding:0; 
+  box-shadow:  0px 1px 4px var(--shadow-color);
+  cursor:pointer;
+  display:block;
+  position:absolute;
+  max-height: 90vh;
+  overflow:auto;
+  top:4rem;
+}
+.navbar-section-main-help-options-ul li{
+  padding:.6rem 1rem ;
+  border-radius:5px;
+}
+.navbar-section-main-help-options-ul li:hover{
+  background-color: var(--hover-color);
+}
+.navbar-section-main-GroupTalk-options{
+  display:none;
+}
+.navbar-section-main-GroupTalk-options-Working{
+  display:block;
+}
+.navbar-section-main-GroupTalk-options-ul{
+  padding:0; 
+  box-shadow:  0px 1px 4px var(--shadow-color);
+  cursor:pointer;
+  display:block;
+  position:absolute;
+  max-height: 90vh;
+  overflow:auto;
+  top:4rem;
+}
+.navbar-section-main-GroupTalk-options-ul li{
+  padding:.6rem 1rem ;
+  border-radius:5px;
+}
+.navbar-section-main-GroupTalk-options-ul li:hover{
+  background-color: var(--hover-color);
+}
+.modal-backdrop-transparent {
+  background: rgba(0, 0, 0, 0.1);
+}
+.modal-header{
+  padding:0.3rem 1rem;
+}
+.modal-header h5{
+  font-weight:400;
+}
+.modal-body{
+  padding:0.3rem 1rem;
+}
+.modal-body label{
+  width:6rem;
+}
+.main-modal-navbar-section-input1{
+  margin:0;
+  padding:.1rem;
+  border-radius:5px;
+  width:5rem;
+}
+.modal-body button{
+  padding:.3rem 1rem;
+  margin:.1rem;
+  border:none;
+  border-radius:5px;
+  background-color:lightgray;
+}
+.main-modal-navbar-section-input-color{
+  margin:0.5rem 0.1rem ;
+  padding:0;
+  border-radius:4px;
+  height:1.5rem;
+  width:2rem;
+}
+.main-modal-navbar-section-select{
+  margin:0.1rem;
+  padding:0;
+  border-radius:4px;
+  height:2rem;
+}
+.modal-footer{
+ display:flex;
+justify-content:center;
+  padding:0.3rem;
+
+}
+.modal-footer button{
+  margin:0 .5rem;
+}
+
+@media only screen and (max-width: 1400px) {
+  .navbar-section-main-exchanges-Suboptions-ul{
+    /* left:11.8rem; */
+  }
+  @media only screen and (max-width: 1310px) {
+  .navbar-section-main-exchanges-Suboptions-ul{
+    /* left:11rem; */
+  }
+    @media only screen and (max-width: 1200px) {
+    .navbar-section-main-exchanges-Suboptions-ul{
+      /* left:10.5rem; */
+    }
+}
+@media only screen and (max-width: 1110px) {
+  .navbar-section-main-top-ul{
+   display:block; 
+    position:fixed;
+    top:0;
+    left:0;
+    height:100vh;
+    width:18vw;
+    text-align:center;
+    font-size:.9rem;
+    padding:1rem 0;
+    cursor:pointer;
+    overflow:auto;
+  }
+  .navbar-section-main-top-ul li{
+    padding:1rem;
+  }
+  .navbar-section-main-exchanges-options-ul{
+    position:fixed;
+    left:18vw;
+    max-height: 100vh;
+    overflow:none;
+  }
+  .navbar-section-main-exchanges-Suboptions-ul{
+    cursor:pointer;
+    display:block;
+    position:absolute;
+    left:6.6rem;
+    max-height: 100vh;
+    width:20vw;
+    overflow:auto;
+    box-shadow:  0px 1px 4px var(--shadow-color);
+    padding:0;
+    margin:0 ;
+  }
+  .navbar-section-main-widgets-options-ul{
+    position:fixed;
+    left:18vw;
+    max-height: 100vh;
+    overflow:auto;
+  }
+  .navbar-section-main-times-options-ul{
+    position:fixed;
+    left:18vw;
+    max-height: 100vh;
+    overflow:auto;
+    width:17vw;
+  }
+  .navbar-section-main-display-options-ul{
+    position:fixed;
+    left:18vw;
+    max-height: 100vh;
+    overflow:auto;
+    width:17vw;
+  }
+  .navbar-section-main-indicators-options-ul{
+    position:fixed;
+    left:18vw;
+    max-height: 100vh;
+    overflow:auto;
+    width:17vw;
+  }
+  /* .main-modal-navbar-section{
+    width:60vw;
+  } */
+  .navbar-section-main-draw-options-ul{
+    position:fixed;
+    left:18vw;
+    max-height: 100vh;
+    overflow:auto;
+    width:17vw;
+  }
+  .navbar-section-main-help-options-ul{
+    position:fixed;
+    left:18vw;
+    max-height: 100vh;
+    overflow:auto;
+    width:17vw;
+  }
+  .testing-fxn{
+    margin-left:.5rem;
+    color:lightgrey;
+  }
+
+.navbar-section-main-GroupTalk-options-ul{
+    position:fixed;
+    left:18vw;
+    max-height: 100vh;
+    overflow:auto;
+    width:17vw;
+  top:50vh;
+}
+  
+}
+@media only screen and (max-width: 900px) {
+  .navbar-section-main-top-ul{
+   display:block; 
+    position:fixed;
+    top:0;
+    left:0;
+    height:100vh;
+    width:21vw;
+    text-align:center;
+    font-size:.9rem;
+    padding:1rem 0;
+    cursor:pointer;
+    overflow:auto;
+  }
+  .navbar-section-main-exchanges-options-ul{
+    left:21vw;
+  }
+  .navbar-section-main-exchanges-Suboptions-ul{
+    /* left:33vw; */
+  }
+  .navbar-section-main-widgets-options-ul{
+    left:21vw;
+  }
+  .navbar-section-main-times-options-ul{
+    left:21vw;
+  }
+  .navbar-section-main-display-options-ul{
+    left:21vw;
+  }
+  .navbar-section-main-indicators-options-ul{
+    left:21vw;
+  }
+  /* .main-modal-navbar-section{
+    width:60vw;
+  } */
+  .navbar-section-main-draw-options-ul{
+    left:21vw;
+  }
+  .navbar-section-main-help-options-ul{
+    left:21vw;
+  }
+  .navbar-section-main-GroupTalk-options-ul{  
+      left:21vw;
+  }
+  
+}
+@media only screen and (max-width: 800px) {
+  .navbar-section-main-top-ul{
+   display:block; 
+    position:fixed;
+    top:0;
+    left:0;
+    height:100vh;
+    width:22vw;
+    text-align:center;
+    font-size:.9rem;
+    padding:1rem 0;
+    cursor:pointer;
+    overflow:auto;
+  }
+  .navbar-section-main-exchanges-options-ul{
+    left:22vw;
+  }
+  .navbar-section-main-exchanges-Suboptions-ul{
+    /* left:36vw; */
+    width:25vw;
+  }
+  .navbar-section-main-widgets-options-ul{
+    left:22vw;
+  }
+  .navbar-section-main-times-options-ul{
+    left:22vw;
+  }
+  .navbar-section-main-display-options-ul{
+    left:22vw;
+  }
+  .navbar-section-main-indicators-options-ul{
+    left:22vw;
+  }
+  /* .main-modal-navbar-section{
+    width:60vw;
+  } */
+  .navbar-section-main-draw-options-ul{
+    left:22vw;
+  }
+  .navbar-section-main-help-options-ul{
+    left:22vw;
+  }
+  .navbar-section-main-GroupTalk-options-ul{  
+      left:22vw;
+  }
+}
+    @media screen and (max-width: 750px) {
+      .navbar-section-main-exchanges-Suboptions-ul{
+        /* left:37vw; */
+      }
+    }
+@media only screen and (max-width: 700px) {
+  .navbar-section-main-top-hamburger-icon{
+    display:block;
+  }
+  .navbar-section-main-top-ul-crossIcon{
+    display:block;
+    position:fixed;
+    height:1.5rem;
+    width:auto;
+    left:30vw;
+    top:3vh;
+  }
+  .navbar-section-main-top{
+    width:40vw;
+    background-color:black;
+  }
+  .navbar-section-main-top-ul{
+    display:none;
+    position:fixed;
+    height:100vh;
+    overflow:auto;
+    font-size:.73rem;
+    padding:1.3rem 0;
+    /* float:right; */
+    cursor:pointer;
+    width:30vw;
+    margin:0;
+  }
+  .navbar-section-main-exchanges-options-ul{
+    left:30vw;
+  }
+  .navbar-section-main-exchanges-Suboptions-ul{
+    left:5.8rem;
+    width:31vw;
+  }
+  .navbar-section-main-widgets-options-ul{
+    left:30vw;
+    width:31vw;
+  }
+  .navbar-section-main-times-options-ul{
+    left:30vw;
+    width:31vw;
+  }
+  .navbar-section-main-display-options-ul{
+    left:30vw;
+    width:31vw;
+  }
+  .navbar-section-main-indicators-options-ul{
+    left:30vw;
+    width:31vw;
+  }
+  .navbar-section-main-draw-options-ul{
+    left:30vw;
+    width:31vw;
+  }
+  .navbar-section-main-help-options-ul{
+    left:30vw;
+    width:31vw;
+  }
+  .navbar-section-main-GroupTalk-options-ul{  
+      left:30vw;
+  }
+}
+    @media screen and (max-width: 650px) {
+    .navbar-section-main-exchanges-Suboptions-ul{
+        /* left:46vw; */
+      }
+    }
+    @media screen and (max-width: 560px) {
+    .navbar-section-main-exchanges-Suboptions-ul{
+        /* left:48vw; */
+      }
+    }
+    @media screen and (max-width: 500px) {
+    .navbar-section-main-exchanges-Suboptions-ul{
+        /* left:50vw; */
+      }
+      
+    }
+    @media screen and (max-width: 450px) {
+    .navbar-section-main-exchanges-Suboptions-ul{
+        /* left:53vw; */
+      }
+      /* .main-modal-navbar-section{
+width:100vw;
+      } */
+    }
+    @media screen and (max-width: 390px) {
+    .navbar-section-main-exchanges-Suboptions-ul{
+        /* left:55vw; */
+      }
+    }

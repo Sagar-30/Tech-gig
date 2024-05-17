@@ -1,0 +1,282 @@
+Sure! Here’s an extensive list of 150 coding tasks and questions that cover a wide range of topics in React, from basic concepts to advanced features. This list will help you prepare comprehensively for any React interview, touching on everything from logic and development to performance and testing.
+
+### Basic Concepts:
+1. **Hello World Component:**
+   - Create a basic React component that displays "Hello World".
+
+2. **Simple Counter:**
+   - Build a counter component with increment, decrement, and reset buttons.
+
+3. **Static List:**
+   - Render a static list of items using an array.
+
+4. **Reusable Button:**
+   - Create a reusable button component with customizable styles and onClick behavior.
+
+5. **Conditional Rendering:**
+   - Display different text based on a boolean state.
+
+### State Management:
+6. **Toggle Visibility:**
+   - Create a component with a button that toggles the visibility of a text element.
+
+7. **Form Handling:**
+   - Build a form with input fields and handle state updates on input change.
+
+8. **Controlled vs. Uncontrolled Inputs:**
+   - Demonstrate the difference between controlled and uncontrolled inputs.
+
+9. **Counter with useReducer:**
+   - Implement a counter using the useReducer hook.
+
+10. **Complex State Management:**
+    - Manage a state object with nested properties and arrays.
+
+### Props and State:
+11. **Props Drilling:**
+    - Pass props through multiple levels of components.
+
+12. **State Lifting:**
+    - Lift state up to a common ancestor component to share data between siblings.
+
+13. **Component Composition:**
+    - Compose multiple smaller components into a larger component.
+
+14. **Default Props:**
+    - Set default values for props in a component.
+
+15. **Prop Types:**
+    - Use PropTypes to validate props in a component.
+
+### Hooks:
+16. **useState Hook:**
+    - Create a counter using the useState hook.
+
+17. **useEffect Hook:**
+    - Fetch data from an API on component mount using the useEffect hook.
+
+18. **useContext Hook:**
+    - Implement global state management using the Context API and useContext hook.
+
+19. **Custom Hook:**
+    - Create a custom hook to manage form input and validation.
+
+20. **useRef Hook:**
+    - Use the useRef hook to focus an input field programmatically.
+
+### Lifecycle Methods:
+21. **ComponentDidMount:**
+    - Fetch data from an API in componentDidMount.
+
+22. **ComponentDidUpdate:**
+    - Trigger a side effect when a component’s state or props change using componentDidUpdate.
+
+23. **ComponentWillUnmount:**
+    - Clean up a subscription or timer in componentWillUnmount.
+
+24. **ShouldComponentUpdate:**
+    - Prevent unnecessary re-renders using shouldComponentUpdate.
+
+25. **getDerivedStateFromProps:**
+    - Update state based on prop changes using getDerivedStateFromProps.
+
+### Routing:
+26. **Basic Routing:**
+    - Set up basic routing with React Router.
+
+27. **Nested Routes:**
+    - Implement nested routes to handle sub-pages within a main page.
+
+28. **Dynamic Routing:**
+    - Use route parameters to display dynamic content based on the URL.
+
+29. **Protected Routes:**
+    - Implement protected routes that redirect to a login page if the user is not authenticated.
+
+30. **Route Redirection:**
+    - Redirect users from one route to another programmatically.
+
+### Forms and Input Handling:
+31. **Login Form:**
+    - Create a login form with username and password fields and handle form submission.
+
+32. **Signup Form:**
+    - Build a signup form with validation for email, password, and confirm password fields.
+
+33. **Dynamic Form:**
+    - Implement a form that allows users to dynamically add or remove input fields.
+
+34. **Search Filter:**
+    - Create a search input that filters a list of items in real-time.
+
+35. **Form Validation:**
+    - Implement form validation with error messages for required fields.
+
+### Lists and Data Display:
+36. **Todo List:**
+    - Develop a todo list application where users can add, delete, and mark tasks as completed.
+
+37. **Filterable List:**
+    - Create a list of items with a filter input to search through the list.
+
+38. **Pagination:**
+    - Implement pagination for a long list of items.
+
+39. **Sorting:**
+    - Create a sortable list where items can be sorted alphabetically or by date.
+
+40. **Infinite Scroll:**
+    - Implement infinite scrolling to load more data as the user scrolls down the page.
+
+### API Integration:
+41. **Fetch Data:**
+    - Fetch data from an API and display it in a component, with loading and error states.
+
+42. **Post Data:**
+    - Implement a form that posts data to an API and handles the response.
+
+43. **Dependent Dropdowns:**
+    - Create dropdowns where the options in one depend on the selection in another (e.g., country and city).
+
+44. **Debounced Search:**
+    - Build a search component that fetches and displays results from an API with debouncing.
+
+45. **Polling:**
+    - Set up polling to fetch data from an API at regular intervals.
+
+### Performance Optimization:
+46. **Memoized Component:**
+    - Optimize a component using React.memo to prevent unnecessary re-renders.
+
+47. **useMemo Hook:**
+    - Use the useMemo hook to memoize expensive calculations.
+
+48. **useCallback Hook:**
+    - Use the useCallback hook to memoize callback functions.
+
+49. **Virtualized List:**
+    - Create a virtualized list that only renders items visible in the viewport.
+
+50. **Lazy Loading:**
+    - Implement lazy loading for components using React.lazy and Suspense.
+
+### Error Handling:
+51. **Error Boundary:**
+    - Create an error boundary component to catch and display errors in child components.
+
+52. **Global Error Handling:**
+    - Set up global error handling for API requests.
+
+53. **Fallback UI:**
+    - Show a fallback UI when an error occurs during data fetching.
+
+54. **Retry Logic:**
+    - Add retry logic to handle transient errors when fetching data from an API.
+
+55. **Form Error Handling:**
+    - Display validation errors and handle submission errors in a form.
+
+### Testing:
+56. **Unit Tests:**
+    - Write unit tests for a functional component using Jest and React Testing Library.
+
+57. **Snapshot Testing:**
+    - Implement snapshot testing for components.
+
+58. **Integration Testing:**
+    - Write integration tests to test multiple components together.
+
+59. **End-to-End Testing:**
+    - Create an end-to-end test for a user registration flow using Cypress.
+
+60. **Mock API Requests:**
+    - Mock API requests in tests to simulate different server responses.
+
+### Advanced Topics:
+61. **Context Menu:**
+    - Create a context menu that appears on right-clicking an element.
+
+62. **Drag and Drop:**
+    - Implement a drag-and-drop sortable list using a library like react-beautiful-dnd.
+
+63. **Animations:**
+    - Add animations to a component using a library like Framer Motion or React Spring.
+
+64. **File Upload:**
+    - Implement a file upload component that shows upload progress and handles multiple file uploads.
+
+65. **WebSockets:**
+    - Create a notification system using WebSockets to receive real-time updates.
+
+66. **Server-Side Rendering:**
+    - Implement server-side rendering for a React application using Next.js.
+
+67. **Redux Middleware:**
+    - Write custom middleware for Redux to handle side effects.
+
+68. **Context API with useReducer:**
+    - Combine Context API with useReducer for complex state management.
+
+69. **Optimistic UI Updates:**
+    - Implement optimistic UI updates to provide a responsive user experience.
+
+70. **Code Splitting:**
+    - Use React’s code-splitting features to load components only when needed.
+
+### Context API:
+71. **Simple Context Example:**
+    - Create a context to manage a theme (light/dark) and use it in a component.
+
+72. **Multiple Contexts:**
+    - Use multiple contexts in a single component.
+
+73. **Context with Reducer:**
+    - Combine Context API with useReducer for complex state management.
+
+74. **Context for User Authentication:**
+    - Implement user authentication state management using Context API.
+
+75. **Updating Context Value:**
+    - Update context values based on user actions.
+
+### Redux:
+76. **Basic Redux Setup:**
+    - Set up Redux with a simple counter example.
+
+77. **Redux Thunk:**
+    - Use Redux Thunk to handle asynchronous actions.
+
+78. **Redux Saga:**
+    - Use Redux Saga to handle side effects in Redux.
+
+79. **Connecting Redux to Components:**
+    - Connect a React component to a Redux store and dispatch actions.
+
+80. **Redux DevTools:**
+    - Configure Redux DevTools for debugging.
+
+### React Native:
+81. **Basic React Native App:**
+    - Set up a basic React Native application.
+
+82. **Styling Components:**
+    - Style React Native components using StyleSheet.
+
+83. **Navigation in React Native:**
+    - Implement navigation using React Navigation.
+
+84. **Fetch Data in React Native:**
+    - Fetch and display data from an API in a React Native app.
+
+85. **Forms in React Native:**
+    - Create a form with input validation in a React Native app.
+
+### Real-World Scenarios:
+86. **Weather App:**
+    - Build a weather app that fetches and displays weather data based on user location.
+
+87. **E-commerce Product List:**
+    - Create a product list for an e-commerce site with filtering and sorting.
+
+88. **Chat Application:**
+    - Develop a real-time chat application using

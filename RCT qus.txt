@@ -372,3 +372,190 @@ Sure! Here's a list of around 60 logic-building and practical questions that can
 60. Create a component that shows notifications when new messages are received.
 
 These questions and tasks cover a wide range of skills and scenarios you might encounter in a React interview. Practicing these will help you build confidence and proficiency in React development.
+
+
+
+...................................................
+Got it! Here are some practical, logic-building questions that test your understanding of React as well as your problem-solving skills:
+
+1. **Date Calculation:**
+   - Write a React component that calculates and displays all the Fridays of the current month.
+
+2. **Pagination Logic:**
+   - Create a pagination component that divides a list of items into pages and allows navigation between them.
+
+3. **Timer/Stopwatch:**
+   - Build a stopwatch component that starts, stops, and resets the timer.
+
+4. **Form Validation:**
+   - Create a form component that validates inputs such as email and phone number in real-time.
+
+5. **Filtering Data:**
+   - Implement a component that filters a list of items based on user input (e.g., a search bar).
+
+6. **Dynamic Table:**
+   - Design a table component that allows sorting columns by clicking on the headers.
+
+7. **Character Counter:**
+   - Create a component that counts and displays the number of characters in a text input.
+
+8. **To-Do List with Due Dates:**
+   - Build a to-do list component that allows users to set due dates for tasks and highlights overdue tasks.
+
+9. **Infinite Scroll:**
+   - Implement infinite scrolling for a list of items fetched from an API.
+
+10. **Weather App:**
+    - Create a weather app that fetches and displays weather data for a user-specified city.
+
+11. **Image Gallery:**
+    - Build an image gallery component that fetches images from an API and displays them with lazy loading.
+
+12. **Currency Converter:**
+    - Create a currency converter component that fetches exchange rates and converts amounts between currencies.
+
+13. **Dark Mode Toggle:**
+    - Implement a dark mode toggle for an application that switches between light and dark themes.
+
+14. **Form Wizard:**
+    - Build a multi-step form wizard that saves progress as the user navigates through steps.
+
+15. **Drag and Drop List:**
+    - Create a component that allows users to reorder a list of items using drag-and-drop.
+
+16. **Real-time Chat:**
+    - Implement a simple real-time chat component using WebSockets.
+
+17. **Stock Ticker:**
+    - Create a stock ticker component that fetches and displays real-time stock prices.
+
+18. **Quiz App:**
+    - Build a quiz app that fetches questions from an API and displays the score after completion.
+
+19. **Dynamic Dropdowns:**
+    - Implement cascading dropdowns where the options of one dropdown depend on the selection of another.
+
+20. **Recipe Finder:**
+    - Create a recipe finder app that fetches and displays recipes based on user input ingredients.
+
+21. **Expense Tracker:**
+    - Build an expense tracker component that allows users to add, edit, and delete expenses.
+
+22. **User Authentication:**
+    - Create a login and registration component with client-side validation and state management.
+
+23. **Product Filter:**
+    - Implement a product filter component that filters products by category, price range, and rating.
+
+24. **Dynamic Form Fields:**
+    - Create a form that dynamically adds or removes input fields based on user interaction.
+
+25. **Custom Hook for Fetching Data:**
+    - Write a custom hook that abstracts away the data fetching logic and can be reused in different components.
+
+26. **Error Boundary:**
+    - Implement an Error Boundary component that catches JavaScript errors anywhere in the child component tree and displays a fallback UI.
+
+27. **Temperature Converter:**
+    - Create a component that converts temperatures between Celsius, Fahrenheit, and Kelvin.
+
+28. **Voting App:**
+    - Build a voting app that allows users to vote on different options and displays the results in real-time.
+
+29. **User Profile:**
+    - Create a user profile component that fetches and displays user information, including a profile picture, name, and bio.
+
+30. **CRUD Operations:**
+    - Implement a component that performs Create, Read, Update, and Delete operations on a list of items.
+
+31. **Notification System:**
+    - Create a notification system that shows real-time notifications and allows dismissing them.
+
+32. **Live Search:**
+    - Build a live search component that fetches and displays search results as the user types.
+
+33. **E-commerce Cart:**
+    - Implement an e-commerce cart component that adds, removes, and updates item quantities.
+
+34. **Countdown Timer:**
+    - Create a countdown timer component that counts down from a specified time to zero.
+
+35. **Accordion:**
+    - Build an accordion component that expands and collapses sections to show and hide content.
+
+36. **Form Auto-save:**
+    - Implement a form that auto-saves input data at regular intervals.
+
+37. **Rating System:**
+    - Create a rating system component that allows users to rate items and displays the average rating.
+
+38. **Tag Input:**
+    - Build a tag input component that allows users to add and remove tags.
+
+39. **Task Scheduler:**
+    - Create a task scheduler component that allows users to schedule tasks for specific dates and times.
+
+40. **News Feed:**
+    - Implement a news feed component that fetches and displays the latest news articles.
+
+41. **Product Carousel:**
+    - Build a product carousel component that slides through a list of products with next/previous controls.
+
+42. **Theme Switcher:**
+    - Create a theme switcher component that changes the application's theme based on user selection.
+
+43. **Responsive Navigation:**
+    - Implement a responsive navigation menu that collapses into a hamburger menu on smaller screens.
+
+44. **Location Tracker:**
+    - Create a component that fetches and displays the user's current location using the Geolocation API.
+
+45. **Editable Table:**
+    - Build an editable table component that allows inline editing of table cells.
+
+46. **Image Uploader:**
+    - Implement an image uploader component that previews the selected image before uploading.
+
+47. **Rate Limiter:**
+    - Create a component that rate limits the number of API calls a user can make within a certain time frame.
+
+48. **Calendar Events:**
+    - Build a calendar component that allows users to add, edit, and delete events.
+
+49. **Step Tracker:**
+    - Implement a step tracker component that displays the number of steps taken each day.
+
+50. **Search Suggestions:**
+    - Create a search bar component that shows suggestions as the user types.
+
+51. **Random Quote Generator:**
+    - Build a random quote generator that fetches and displays a new quote each time a button is clicked.
+
+52. **Music Player:**
+    - Implement a music player component that plays, pauses, and skips through a list of tracks.
+
+53. **Weather Dashboard:**
+    - Create a weather dashboard that shows the weather forecast for multiple cities.
+
+54. **Stock Portfolio:**
+    - Build a stock portfolio tracker that displays the performance of a user's investments.
+
+55. **QR Code Generator:**
+    - Implement a component that generates QR codes based on user input.
+
+56. **Text Highlighter:**
+    - Create a text highlighter component that highlights specified words or phrases in a block of text.
+
+57. **Todo List with Priority:**
+    - Build a to-do list component that allows users to assign priority levels to tasks.
+
+58. **Expense Pie Chart:**
+    - Implement a component that displays expenses in a pie chart based on categories.
+
+59. **Step-by-Step Guide:**
+    - Create a step-by-step guide component that walks users through a series of steps or instructions.
+
+60. **Bookmark Manager:**
+    - Build a bookmark manager component that allows users to save, organize, and search for bookmarks.
+
+These questions and tasks will help you practice your logic-building skills and demonstrate your ability to solve real-world problems in React.

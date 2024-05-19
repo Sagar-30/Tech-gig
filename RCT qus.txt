@@ -280,3 +280,95 @@ Sure! Here’s an extensive list of 150 coding tasks and questions that cover a 
 
 88. **Chat Application:**
     - Develop a real-time chat application using
+
+
+
+.....................................................
+
+Sure! Here's a list of around 60 logic-building and practical questions that can be asked in a React interview. These questions cover a variety of topics including component design, state management, data fetching, event handling, and more.
+
+### Component Design:
+1. How would you create a reusable button component in React?
+2. Design a React component that displays a list of items and allows users to delete an item.
+3. Create a component that toggles between showing and hiding content when a button is clicked.
+4. Build a component that takes an array of user objects and displays them in a table format.
+5. Design a component that displays a modal dialog when a button is clicked.
+
+### State Management:
+6. How would you manage form input state in a React component?
+7. Implement a counter component with increment and decrement buttons.
+8. Create a React component that maintains a list of to-do items and allows users to add new items.
+9. Design a component that uses the useReducer hook to manage complex state.
+10. Create a component that uses the Context API to share state between components.
+
+### Data Fetching:
+11. How would you fetch data from an API when a component mounts?
+12. Design a component that fetches and displays user data from an external API.
+13. Create a component that implements infinite scrolling for a list of items.
+14. Build a component that periodically polls an API for new data.
+15. Design a component that uses SWR or React Query for data fetching and caching.
+
+### Event Handling:
+16. How would you handle form submission in a React component?
+17. Create a component that logs a message to the console when a button is clicked.
+18. Design a component that updates its state based on keyboard input.
+19. Build a component that handles drag-and-drop events.
+20. Create a component that shows a tooltip when a user hovers over a button.
+
+### Conditional Rendering:
+21. How would you conditionally render elements in a React component?
+22. Design a component that shows a loading spinner while data is being fetched.
+23. Create a component that displays different messages based on user roles.
+24. Build a component that displays error messages when an API call fails.
+25. Design a component that shows different content based on the current route.
+
+### Lists and Keys:
+26. How would you render a list of items in React?
+27. Create a component that displays a list of tasks with checkboxes.
+28. Design a component that renders a list of products with unique keys.
+29. Build a component that allows users to reorder a list of items.
+30. Create a component that filters a list of items based on user input.
+
+### Forms and Input Handling:
+31. How would you manage controlled vs. uncontrolled components?
+32. Create a form component that validates email and password inputs.
+33. Design a component that dynamically adds and removes input fields.
+34. Build a form that uses the useForm hook from a library like React Hook Form.
+35. Create a component that handles file uploads.
+
+### Context and Hooks:
+36. How would you use the useContext hook to manage global state?
+37. Create a custom hook for fetching data from an API.
+38. Design a component that uses the useEffect hook to perform side effects.
+39. Build a component that uses the useRef hook to focus an input field.
+40. Create a component that uses the useMemo hook to optimize performance.
+
+### Error Handling:
+41. How would you handle errors in a React component?
+42. Create a component that displays a fallback UI using an Error Boundary.
+43. Design a component that retries fetching data after a failure.
+44. Build a component that shows a generic error message for network failures.
+45. Create a component that validates form inputs and shows error messages.
+
+### Performance Optimization:
+46. How would you prevent unnecessary re-renders in a React component?
+47. Create a component that uses React.memo to optimize rendering.
+48. Design a component that uses the useCallback hook to memoize event handlers.
+49. Build a component that implements code splitting with React.lazy and Suspense.
+50. Create a component that virtualizes a long list of items for better performance.
+
+### Advanced Topics:
+51. How would you implement server-side rendering in a React app?
+52. Create a component that uses WebSockets to receive real-time updates.
+53. Design a component that uses Redux for state management.
+54. Build a component that uses React Router to handle navigation.
+55. Create a component that uses animations with a library like Framer Motion.
+
+### Real-World Scenarios:
+56. How would you build a weather app that fetches and displays weather data?
+57. Create a component that displays a list of users with pagination.
+58. Design a component that implements a search bar with autocomplete.
+59. Build a component that displays a calendar with selectable dates.
+60. Create a component that shows notifications when new messages are received.
+
+These questions and tasks cover a wide range of skills and scenarios you might encounter in a React interview. Practicing these will help you build confidence and proficiency in React development.
